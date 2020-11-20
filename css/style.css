@@ -1,0 +1,23 @@
+/*
+Reseting styling for the elements in each pages. 
+Source inspired by:
+html5doctor.com Reset Stylesheet
+Author: Richard Clark - http://richclarkdesign.com
+*/
+html, body, div, span, iframe, h1, h2, h3, p, img, ol, ul, li, fieldset, form, label, legend, caption, article, aside, figcaption, figure, footer, header, section {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+    background: transparent;
+}
+
+body {
+    padding: 5px;
+}
+
+h2 {
+    height: fit-content;
+}
