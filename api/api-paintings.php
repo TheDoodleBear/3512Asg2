@@ -9,41 +9,29 @@ try {
     $conn = DatabaseConn::establishConn(array(DBCONNSTRING, DBUSER, DBPASS));
 
     $dbConnect = new PaintingDB($conn);
+    // If the right query string is present and is not empty process Data
+    if (isset($_GET['gallery']) && !empty($_GET['gallery'])) {
 
-    if (isCorrectQueryStringInfo("gallery"))
         $paintings = $dbConnect->getPaintingforGal($_GET["gallery"]);
-    else if (isCorrectQueryStringInfo("painting"))
-        $paintings = $dbConnect->getTop20Paint($_GET["painting"]);
-    else
-        $paintings = $dbConnect->getAll();
+    // If the right query string is present and is empty show ID missing
+    } else if (isset($_GET['gallery']) && empty($_GET['gallery'])) {
 
+        $paintings =  'Missing Gallery ID';
+    } else {
+        // Display if none of the above matches. 
+        $paintings =  'Missing or Incorrect Query String';
+    }
+    // Return JSON string 
     echo json_encode($paintings, JSON_NUMERIC_CHECK);
 } catch (Exception $e) {
     die($e->getMessage());
 }
-
-function isCorrectQueryStringInfo($param)
-{
-    if (isset($_GET[$param]) && !empty($_GET[$param])) {
-        return true;
-    } else {
-        return false;
-    }
-}
-
 
 class PaintingDB
 {
     public function __construct($connection)
     {
         $this->pdo = $connection;
-    }
-
-    public function getAll()
-    {
-        $sql = getPaintingSQL();
-        $statement = DatabaseConn::runQuery($this->pdo, $sql, null);
-        return $statement->fetchAll();
     }
 
     public function getPaintingforGal($galleryID)
@@ -53,11 +41,15 @@ class PaintingDB
         return $statement->fetchAll();
     }
 
-    public function getTop20Paint($paintID)
+    public function getTop20()
     {
-        $sql = getPaintingSQL() . " WHERE Paintings.GalleryID=?";
+        $sql = getPaintingSQL();
         $sql = addSortAndLimit($sql);
-        $statement = DatabaseConn::runQuery($this->pdo, $sql, array($paintID));
+        $statement = DatabaseConn::runQuery(
+            $this->pdo,
+            $sql,
+            null
+        );
         return $statement->fetchAll();
     }
 }

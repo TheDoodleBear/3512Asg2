@@ -1,6 +1,6 @@
 <?php
 // Attempting to use Google Cloud SQL 
-// define('DBHOST', '34.105.62.245');
+// define('DBHOST', getCloudSqlConnection(url, userName, password)');
 // define('DBNAME', 'art');
 // define('DBUSER', 'root');
 // define('DBPASS', 'qtihn5qgdJKxIMHz');
