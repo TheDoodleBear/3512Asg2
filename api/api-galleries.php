@@ -10,20 +10,30 @@ header('Content-type: application/json');
 header('Access-COntrol-Allow-Origin: *');
 
 try {
+    // establish connection to database
     $conn = DatabaseConn::establishConn(array(DBCONNSTRING, DBUSER, DBPASS));
 
+    // create array containing all galleries information
     $galleries = getAllGalleries($conn);
 
+    /* if paintID parameter is set, galleries is an array with a single painting's information
+    Note: that paintID key may need to be changed depending on use in galleries.php and/or single-painting.php
+    */
     if (isset($_GET['paintID'])) {
         $paintID = $_GET['paintID'];
         $galleries = getSinglePainting($conn, $paintID);
     }
+    // output the galleries array as JSON object
     echo json_encode($galleries, JSON_NUMERIC_CHECK);
+
+    // close the connection to the database
+    $conn = null;
 
 } catch (Exception $e) {
     die($e->getMessage());
 }
 
+/// class for Gallery Database connections
 class GalleryDB
 {
     // variable for base SQL statement to return all columns from Galleries table 
@@ -43,6 +53,7 @@ class GalleryDB
         return $statement->fetchAll();
     }
 
+    // returns a single painting information for painting that matches the paintingID parameter
     public function getSinglePainting($paintingID)
     {
         $sql = getPaintSQL();
@@ -52,6 +63,7 @@ class GalleryDB
     }
 }
 
+// create the SQL statement to select the needed painting details from Paintings, Artist & Galleries tables
 function getPaintSQL()
 {
     $sql = "SELECT PaintingID, Paintings.ArtistID AS ArtistID, FirstName, LastName, Paintings.GalleryID as GalleryID, 
@@ -63,6 +75,7 @@ function getPaintSQL()
     return $sql;
 }
 
+// helper function that returns all galleries from a new GalleryDB connection object
 function getAllGalleries($connection)
 {
     $galleriesGateway = new GalleryDB($connection);
@@ -70,6 +83,7 @@ function getAllGalleries($connection)
     return $galleries;
 }
 
+// helper function thatreturns a painting from a new GalleryDB connection object
 function getSinglePainting($connection, $ID)
 {
     $galleriesGateway = new GalleryDB($connection);
