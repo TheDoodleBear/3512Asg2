@@ -19,9 +19,9 @@ try {
     /* if paintID parameter is set, galleries is an array with a single painting's information
     Note: that paintID key may need to be changed depending on use in galleries.php and/or single-painting.php
     */
-    if (isset($_GET['paintID'])) {
-        $paintID = $_GET['paintID'];
-        $galleries = getSinglePainting($conn, $paintID);
+    if (isset($_GET['id'])) {
+        $galleryID = $_GET['id'];
+        $galleries = getGallery($conn, $galleryID);
     }
     // output the galleries array as JSON object
     echo json_encode($galleries, JSON_NUMERIC_CHECK);
@@ -45,7 +45,7 @@ class GalleryDB
         $this->pdo = $connection;
     }
 
-    // method that returns base SQL statement executed on Gallery table as an associative array
+    // returns all galleries from the galleries table
     public function getAll()
     {
         $sql = self::$baseSQL;
@@ -53,26 +53,21 @@ class GalleryDB
         return $statement->fetchAll();
     }
 
-    // returns a single painting information for painting that matches the paintingID parameter
-    public function getSinglePainting($paintingID)
+    // returns a single gallery from the galleries table that matches the GalleryID parameter
+    public function getSingleGallery($galleryID)
     {
-        $sql = getPaintSQL();
-        $sql = $sql . " WHERE Paintings.PaintingID =?";
-        $statement = DatabaseConn::runQuery($this->pdo, $sql, array($paintingID));
+        $sql = self::$baseSQL;
+        $sql = getGallerySQL($sql);
+        $statement = DatabaseConn::runQuery($this->pdo, $sql, array($galleryID));
         return $statement->fetchAll();
     }
 }
 
-// create the SQL statement to select the needed painting details from Paintings, Artist & Galleries tables
-function getPaintSQL()
+// alter the SQL statement to select the matching Gallery from the Galleries tables
+function getGallerySQL($oldSQL)
 {
-    $sql = "SELECT PaintingID, Paintings.ArtistID AS ArtistID, FirstName, LastName, Paintings.GalleryID as GalleryID, 
-    ImageFileName, Title, ShapeID, MuseumLink, AccessionNumber, CopyrightText, Description, 
-    Excerpt, YearOfWork, Width, Height, Medium, Cost, MSRP, GoogleLink, GoogleDescription, 
-    WikiLink, JsonAnnotations FROM (( Paintings 
-    INNER JOIN Artists ON Paintings.ArtistID = Artists.ArtistID )
-    INNER JOIN Galleries ON Galleries.GalleryID = Paintings.GalleryID)";
-    return $sql;
+    $newSQL = $oldSQL . " WHERE GalleryID=?";
+    return $newSQL;
 }
 
 // helper function that returns all galleries from a new GalleryDB connection object
@@ -83,10 +78,10 @@ function getAllGalleries($connection)
     return $galleries;
 }
 
-// helper function thatreturns a painting from a new GalleryDB connection object
-function getSinglePainting($connection, $ID)
+// helper function that returns a gallery from a new GalleryDB connection object
+function getGallery($connection, $ID)
 {
     $galleriesGateway = new GalleryDB($connection);
-    $painting = $galleriesGateway->getSinglePainting($ID);
-    return $painting;
+    $gallery = $galleriesGateway->getSingleGallery($ID);
+    return $gallery;
 }
