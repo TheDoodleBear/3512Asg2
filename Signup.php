@@ -9,7 +9,7 @@ if (isset($_SESSION['CustID'])) {
 }
 ?>
 <main>
-        <div class="heroWrapper1">
+        <div class="signupWrapper">
             <form class="indexForm" action="action_page.php" method="post">
                 <div class="frmBtn">
                     <button type="submit">Login</button>

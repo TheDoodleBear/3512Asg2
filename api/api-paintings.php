@@ -1,6 +1,6 @@
 <?php
-require_once 'dbconfig.inc.php';
-require_once 'db-class.inc.php';
+require_once '../includes/dbconfig.inc.php';
+require_once '../includes/db-class.inc.php';
 // Tell the browser to expect JSON rather than HTML
 header('Content-type: application/json');
 // indicate whether other domains can use this API
