@@ -23,6 +23,9 @@ try {
     }
     // Return JSON string 
     echo json_encode($paintings, JSON_NUMERIC_CHECK);
+
+    // close the connection to the database
+    $conn = null;
 } catch (Exception $e) {
     die($e->getMessage());
 }
