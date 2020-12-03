@@ -156,6 +156,7 @@ function displayPainting($painting)
     echo "<label>Museum Page</label><a href='" . $painting['MuseumLink'] . "'>" . $painting['MuseumLink'] . "</a>";
     echo "</div>";
     echo "<div class='pColr dBox '>";
+    echo "<p>";
     // echo $painting['JsonAnnotations'];
     /*
     I'm trying to extract the color RGB values, Hex values and name from the JsonAnnotations column from the
@@ -172,6 +173,12 @@ function displayPainting($painting)
     $someArray = json_decode($string2);
     $someObj = json_encode($someArray[0]);
     echo $someObj . "<br>--------------<br><br>";
+    str_replace("",'"',$someObj);
+    var_dump($someObj);
+    echo $someObj . "<br>--------------<br><br>";
+    $someObj2 = json_decode($someObj);
+    var_dump($someObj2);
+    echo "</p>";
     echo "</div>";
     echo "</div>";
 }
