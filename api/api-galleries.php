@@ -16,7 +16,7 @@ try {
     // create array containing all galleries information
     $galleries = getAllGalleries($conn);
 
-    /* if paintID parameter is set, galleries is an array with a single painting's information
+    /* if ID parameter is set, galleries is an array with a single gallery's information
     Note: that paintID key may need to be changed depending on use in galleries.php and/or single-painting.php
     */
     if (isset($_GET['id'])) {
