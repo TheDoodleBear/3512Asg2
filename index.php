@@ -5,15 +5,15 @@ require_once 'includes/header.php';
 session_start();
 
 if (isset($_SESSION['CustID'])) {
-    header("Location: action_page1.php");
+    header("Location: home.php");
 }
 ?>
-<main>
+<main id="indexPage">
         <div class="heroWrapper1">
-            <form class="indexForm" action="action_page.php" method="post">
+            <form class="indexForm" action="login.php" method="post">
                 <div class="frmBtn">
-                    <button type="submit">Login</button>
-                    <button type="submit">Sign Up</button>
+                    <button type="submit" >Login</button>
+                    <button type="submit" formaction="signup.php">Join</button>
                 </div>
                 <input type="text" placeholder="SEARCH BOX FOR Paintings" name="pSearch">
             </form>

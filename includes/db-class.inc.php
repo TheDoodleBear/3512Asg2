@@ -48,3 +48,137 @@ class DatabaseConn
         return $statement;
     }
 }
+
+class PaintingDB
+{
+    public function __construct($connection)
+    {
+        $this->pdo = $connection;
+    }
+
+    public function getPaintingforGal($galleryID)
+    {
+        $sql = getPaintingSQL() . " WHERE Paintings.GalleryID=?";
+        $statement = DatabaseConn::runQuery($this->pdo, $sql, array($galleryID));
+        return $statement->fetchAll();
+    }
+
+    public function getTop20()
+    {
+        $sql = getPaintingSQL();
+        $sql = addSortAndLimit($sql);
+        $statement = DatabaseConn::runQuery(
+            $this->pdo,
+            $sql,
+            null
+        );
+        return $statement->fetchAll();
+    }
+}
+
+function getPaintingSQL()
+{
+    $sql = "SELECT PaintingID, Paintings.ArtistID AS ArtistID, FirstName, LastName, Paintings.GalleryID as GalleryID, GalleryName, 
+    ImageFileName, Title, ShapeID, MuseumLink, AccessionNumber, CopyrightText, Description, 
+    Excerpt, YearOfWork, Width, Height, Medium, Cost, MSRP, GoogleLink, GoogleDescription, 
+    WikiLink, JsonAnnotations FROM (( Paintings 
+    INNER JOIN Artists ON Paintings.ArtistID = Artists.ArtistID )
+    INNER JOIN Galleries ON Galleries.GalleryID = Paintings.GalleryID)";
+    return $sql;
+}
+
+function addSortAndLimit($sqlOld)
+{
+    $sqlNew = $sqlOld . " ORDER BY YearOfWork limit 20";
+    return $sqlNew;
+}
+
+function findPainting($search)
+{
+    try {
+        $pdo = new PDO(DBCONNSTRING, DBUSER, DBPASS);
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $sql = getPaintingSQL();
+        $sql .= " WHERE PaintingID LIKE ?";
+        $statement = $pdo->prepare($sql);
+        $statement->bindValue(1, '%' . $search . '%');
+        $statement->execute();
+        $paintings = $statement->fetch(PDO::FETCH_ASSOC);
+        $pdo = null;
+        return $paintings;
+    } catch (PDOException $e) {
+        die($e->getMessage());
+    }
+}
+
+function pAnnotation($pID)
+{
+    try {
+        $pdo = new PDO(DBCONNSTRING, DBUSER, DBPASS);
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $sql = "SELECT JsonAnnotations FROM Paintings";
+        $sql .= " WHERE PaintingID LIKE ?";
+        $statement = $pdo->prepare($sql);
+        $statement->bindValue(1, '%' . $pID . '%');
+        $statement->execute();
+        $paintings = $statement->fetch(PDO::FETCH_ASSOC);
+        $pdo = null;
+        return $paintings;
+    } catch (PDOException $e) {
+        die($e->getMessage());
+    }
+}
+
+function displayPainting($painting)
+{
+    echo "<div class='pImg'><img src='/img/paintings/full/" . $painting['ImageFileName'] . ".jpg' alt='" . $painting['Title'] . "' /></div>";
+    echo "<div class='pInfo'>";
+    echo "<h2>" . $painting['Title'] . "</h2>";
+    echo "<button>Add to Favorites</button>";
+    echo "<label>" . $painting['FirstName'] . " " . $painting['LastName'] . "</label>";
+    echo "<label>" . $painting['GalleryName'] . ", " . $painting['YearOfWork'] . "</label>";
+    echo "</div>";
+    echo "<div class='pTabs'>";
+    echo "<div id='pButtons'>";
+    echo "<button class='btnDesc btnSelected'>Description</button>";
+    echo "<button class='btnDet '>Detail</button>";
+    echo "<button class='btnColr '>Color</button>";
+    echo "</div>";
+    echo "<div class='pDesc dBox btnSelected'>";
+    echo "<p>" . $painting['Description'] . "</p>";
+    echo "</div>";
+    echo "<div class='pDet dBox '>";
+    echo "<label>Medium</label><span>" . $painting['Medium'] . "</span>";
+    echo "<label>Width</label><span>" . $painting['Width'] . "</span>";
+    echo "<label>Height</label><span>" . $painting['Height'] . "</span>";
+    echo "<label>Copyright</label><span>" . $painting['CopyrightText'] . "</span>";
+    echo "<label>WikiLink</label><a href='" . $painting['WikiLink'] . "'>" . $painting['WikiLink'] . "</a>";
+    echo "<label>Museum Page</label><a href='" . $painting['MuseumLink'] . "'>" . $painting['MuseumLink'] . "</a>";
+    echo "</div>";
+    echo "<div class='pColr dBox '>";
+    echo "<p>";
+    // echo $painting['JsonAnnotations'];
+    /*
+    I'm trying to extract the color RGB values, Hex values and name from the JsonAnnotations column from the
+    Painting database, but since the value is a string, it must be parsed to be workable in PHP or javascript. 
+    I'm stuck on this part and this would be the section we will need to do to complete this page. Then we can
+    Add more CSS Styling on it. 
+    */
+    $string = $painting['JsonAnnotations'];
+    //encodes the string as an Object
+    $string1 = json_decode($string);
+    //encodes the string as an Array
+    $string2 = json_encode($string1->dominantColors);
+    echo $string2. "<br>--------------<br><br>";
+    $someArray = json_decode($string2);
+    $someObj = json_encode($someArray[0]);
+    echo $someObj . "<br>--------------<br><br>";
+    str_replace("",'"',$someObj);
+    var_dump($someObj);
+    echo $someObj . "<br>--------------<br><br>";
+    $someObj2 = json_decode($someObj);
+    var_dump($someObj2);
+    echo "</p>";
+    echo "</div>";
+    echo "</div>";
+}
