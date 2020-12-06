@@ -162,7 +162,9 @@ function displayPainting($painting)
     $JsonAnnotations = $painting['JsonAnnotations'];
     //encodes the string as an Array
     $arrayOfAnnotations = json_decode($JsonAnnotations, true);
+    //creates an array with just the dominant colors array info
     $dominantColors = $arrayOfAnnotations["dominantColors"];
+    //loops through the array and outputs the color name and a span with background color set as current color
     foreach ($dominantColors as $detail) {
         echo $detail['name'] . "<span id='colorSquare' style='background-color: " . $detail['web'] . "'> </span><br>";
     }
