@@ -130,8 +130,8 @@ function pAnnotation($pID)
 }
 
 function displayPainting($painting)
-{
-    echo "<div class='pImg'><img src='/img/paintings/full/" . $painting['ImageFileName'] . ".jpg' alt='" . $painting['Title'] . "' /></div>";
+{   // check image ref path if image not dislpaying
+    echo "<div class='pImg'><img src='img/paintings/full/" . $painting['ImageFileName'] . ".jpg' alt='" . $painting['Title'] . "' /></div>";
     echo "<div class='pInfo'>";
     echo "<h2>" . $painting['Title'] . "</h2>";
     echo "<button>Add to Favorites</button>";
@@ -164,21 +164,12 @@ function displayPainting($painting)
     I'm stuck on this part and this would be the section we will need to do to complete this page. Then we can
     Add more CSS Styling on it. 
     */
-    $string = $painting['JsonAnnotations'];
-    //encodes the string as an Object
-    $string1 = json_decode($string);
+
+    $JsonAnnotations = $painting['JsonAnnotations'];
     //encodes the string as an Array
-    $string2 = json_encode($string1->dominantColors);
-    echo $string2. "<br>--------------<br><br>";
-    $someArray = json_decode($string2);
-    $someObj = json_encode($someArray[0]);
-    echo $someObj . "<br>--------------<br><br>";
-    str_replace("",'"',$someObj);
-    var_dump($someObj);
-    echo $someObj . "<br>--------------<br><br>";
-    $someObj2 = json_decode($someObj);
-    var_dump($someObj2);
-    echo "</p>";
-    echo "</div>";
-    echo "</div>";
+    $arrayOfAnnotations = json_decode($JsonAnnotations, true);
+    $dominantColors = $arrayOfAnnotations["dominantColors"];
+    foreach ($dominantColors as $detail) {
+        echo $detail['name'] . "<span id='colorSquare' style='background-color: " . $detail['web'] . "'> </span><br>";
+    }
 }

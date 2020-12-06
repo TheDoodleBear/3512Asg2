@@ -30,6 +30,7 @@ try {
     die($e->getMessage());
 }
 
+/* Commented out as these functions are already included in the db-class.inc.php and I was getting Function naming errors, will delete after final testing
 class PaintingDB
 {
     public function __construct($connection)
@@ -57,6 +58,8 @@ class PaintingDB
     }
 }
 
+
+
 function getPaintingSQL()
 {
     $sql = "SELECT PaintingID, Paintings.ArtistID AS ArtistID, FirstName, LastName, GalleryID, ImageFileName, Title, ShapeID, MuseumLink, AccessionNumber, CopyrightText, Description, Excerpt, YearOfWork, Width, Height, Medium, Cost, MSRP, GoogleLink, GoogleDescription, WikiLink, JsonAnnotations FROM Paintings INNER JOIN Artists ON Paintings.ArtistID = Artists.ArtistID  ";
@@ -68,3 +71,4 @@ function addSortAndLimit($sqlOld)
     $sqlNew = $sqlOld . " ORDER BY YearOfWork limit 20";
     return $sqlNew;
 }
+*/

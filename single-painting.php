@@ -16,7 +16,8 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
     <meta name="description" content="COMP3512 Assignment02">
     <meta name="author" content="">
     <title>COMP 3512 Assign1</title>
-    <link rel="stylesheet" type="text/css" href="/3512SoloAsg2/css/single-painting.css" media="screen"/>
+    <!-- check ref path for styling page if there is an error in your instance -->
+    <link rel="stylesheet" type="text/css" href="css/sng-paint-css.php" media="screen"/>
     <script src="js/sng-paint.js"></script>
 </head>
 
