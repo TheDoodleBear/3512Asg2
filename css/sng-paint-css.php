@@ -203,6 +203,7 @@ color: white;
 text-shadow: 1px 1px 1px black;
 }
 
+/* id for the color spans in colors tab */
 #colorSquare{
 display: block;
 height: 35px;

@@ -157,13 +157,7 @@ function displayPainting($painting)
     echo "</div>";
     echo "<div class='pColr dBox '>";
     echo "<p>";
-    // echo $painting['JsonAnnotations'];
-    /*
-    I'm trying to extract the color RGB values, Hex values and name from the JsonAnnotations column from the
-    Painting database, but since the value is a string, it must be parsed to be workable in PHP or javascript. 
-    I'm stuck on this part and this would be the section we will need to do to complete this page. Then we can
-    Add more CSS Styling on it. 
-    */
+
 
     $JsonAnnotations = $painting['JsonAnnotations'];
     //encodes the string as an Array
