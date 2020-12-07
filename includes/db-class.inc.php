@@ -130,8 +130,8 @@ function pAnnotation($pID)
 }
 
 function displayPainting($painting)
-{   // check image ref path if image not dislpaying
-    echo "<div class='pImg'><img src='img/paintings/full/" . $painting['ImageFileName'] . ".jpg' alt='" . $painting['Title'] . "' /></div>";
+{
+    echo "<div class='pImg'><img src='/img/paintings/full/" . $painting['ImageFileName'] . ".jpg' alt='" . $painting['Title'] . "' /></div>";
     echo "<div class='pInfo'>";
     echo "<h2>" . $painting['Title'] . "</h2>";
     echo "<button>Add to Favorites</button>";
@@ -156,20 +156,17 @@ function displayPainting($painting)
     echo "<label>Museum Page</label><a href='" . $painting['MuseumLink'] . "'>" . $painting['MuseumLink'] . "</a>";
     echo "</div>";
     echo "<div class='pColr dBox '>";
-    echo "<p>";
-    // echo $painting['JsonAnnotations'];
-    /*
-    I'm trying to extract the color RGB values, Hex values and name from the JsonAnnotations column from the
-    Painting database, but since the value is a string, it must be parsed to be workable in PHP or javascript. 
-    I'm stuck on this part and this would be the section we will need to do to complete this page. Then we can
-    Add more CSS Styling on it. 
-    */
-
+    echo "<div id='colorContainer'>";
     $JsonAnnotations = $painting['JsonAnnotations'];
     //encodes the string as an Array
     $arrayOfAnnotations = json_decode($JsonAnnotations, true);
     $dominantColors = $arrayOfAnnotations["dominantColors"];
     foreach ($dominantColors as $detail) {
-        echo $detail['name'] . "<span id='colorSquare' style='background-color: " . $detail['web'] . "'> </span><br>";
+        echo "<div class='squares'>";
+        echo "<span>" . $detail['name']. "</span> <span>" . $detail['web'] . "</span>" . "<div class='colorSquare' style='background-color: " . $detail['web'] . "'> </div>";
+        echo "</div>";
     }
+    echo "</div>";
+    echo "</div>";
+    echo "</div>";
 }
