@@ -156,13 +156,7 @@ function displayPainting($painting)
     echo "<label>Museum Page</label><a href='" . $painting['MuseumLink'] . "'>" . $painting['MuseumLink'] . "</a>";
     echo "</div>";
     echo "<div class='pColr dBox '>";
-<<<<<<< HEAD
-    echo "<p>";
-
-
-=======
     echo "<div id='colorContainer'>";
->>>>>>> 391641ae205a9cc6686f6c3bf80f39815927b80b
     $JsonAnnotations = $painting['JsonAnnotations'];
     //encodes the string as an Array
     $arrayOfAnnotations = json_decode($JsonAnnotations, true);
