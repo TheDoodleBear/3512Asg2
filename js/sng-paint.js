@@ -35,3 +35,12 @@ function toggleBtnBox() {
         }
     })
 }
+
+function addToFavorites(){
+    document.querySelector('.btnAddFav').addEventListener("click", function (e){
+        if (e.target && e.target.nodeName.toLowerCase() == "button") {
+            // add current single painting to favorites array
+
+        }
+    })
+}

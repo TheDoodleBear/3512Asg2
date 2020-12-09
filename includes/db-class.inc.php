@@ -130,11 +130,11 @@ function pAnnotation($pID)
 }
 
 function displayPainting($painting)
-{
-    echo "<div class='pImg'><img src='/img/paintings/full/" . $painting['ImageFileName'] . ".jpg' alt='" . $painting['Title'] . "' /></div>";
+{ // forward slash removed for testing on ryan's instance on /img/
+    echo "<div class='pImg'><img src='img/paintings/full/" . $painting['ImageFileName'] . ".jpg' alt='" . $painting['Title'] . "' /></div>";
     echo "<div class='pInfo'>";
     echo "<h2>" . $painting['Title'] . "</h2>";
-    echo "<button>Add to Favorites</button>";
+    echo "<button class='btnAddFav'>Add to Favorites</button>";
     echo "<label>" . $painting['FirstName'] . " " . $painting['LastName'] . "</label>";
     echo "<label>" . $painting['GalleryName'] . ", " . $painting['YearOfWork'] . "</label>";
     echo "</div>";
