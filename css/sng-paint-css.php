@@ -230,13 +230,6 @@ button:hover {
     outline: none;
 }
 
-<<<<<<< HEAD
-/* id for the color spans in colors tab */
-#colorSquare{
-display: block;
-height: 35px;
-
-=======
 button.btnSelected {
     /* Emboss source code: https://stackoverflow.com/questions/31259252/making-emboss-buttons */
     -webkit-box-shadow: inset 1px 6px 12px lightskyblue, inset -1px -10px 5px blue, 1px 2px 1px grey;
@@ -249,7 +242,6 @@ button.btnSelected {
     height: 40px;
     position: relative;
     bottom: 5px;
->>>>>>> 391641ae205a9cc6686f6c3bf80f39815927b80b
 }
 
 #colorContainer {
