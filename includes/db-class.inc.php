@@ -130,8 +130,8 @@ function pAnnotation($pID)
 }
 
 function displayPainting($painting)
-{   // check image ref path if image not dislpaying
-    echo "<div class='pImg'><img src='img/paintings/full/" . $painting['ImageFileName'] . ".jpg' alt='" . $painting['Title'] . "' /></div>";
+{
+    echo "<div class='pImg'><img src='/img/paintings/full/" . $painting['ImageFileName'] . ".jpg' alt='" . $painting['Title'] . "' /></div>";
     echo "<div class='pInfo'>";
     echo "<h2>" . $painting['Title'] . "</h2>";
     echo "<button>Add to Favorites</button>";
@@ -156,9 +156,13 @@ function displayPainting($painting)
     echo "<label>Museum Page</label><a href='" . $painting['MuseumLink'] . "'>" . $painting['MuseumLink'] . "</a>";
     echo "</div>";
     echo "<div class='pColr dBox '>";
+<<<<<<< HEAD
     echo "<p>";
 
 
+=======
+    echo "<div id='colorContainer'>";
+>>>>>>> 391641ae205a9cc6686f6c3bf80f39815927b80b
     $JsonAnnotations = $painting['JsonAnnotations'];
     //encodes the string as an Array
     $arrayOfAnnotations = json_decode($JsonAnnotations, true);
@@ -166,6 +170,11 @@ function displayPainting($painting)
     $dominantColors = $arrayOfAnnotations["dominantColors"];
     //loops through the array and outputs the color name and a span with background color set as current color
     foreach ($dominantColors as $detail) {
-        echo $detail['name'] . "<span id='colorSquare' style='background-color: " . $detail['web'] . "'> </span><br>";
+        echo "<div class='squares'>";
+        echo "<span>" . $detail['name']. "</span> <span>" . $detail['web'] . "</span>" . "<div class='colorSquare' style='background-color: " . $detail['web'] . "'> </div>";
+        echo "</div>";
     }
+    echo "</div>";
+    echo "</div>";
+    echo "</div>";
 }
