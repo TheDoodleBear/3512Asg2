@@ -11,9 +11,9 @@ if (isset($_POST['submit'])) {
         $userCred = $dbConnect->checkUser($_POST['uname']);
         if (!empty($userCred)) {
             if (password_verify($_POST['psw'], $userCred['Pass'])) {
-                header("Location:../home.php");
                 session_start();
                 $_SESSION['CustID'] =  $userCred['CustomerID'];
+                header("Location:../index.php");
             } else {
                 header("Location:../login.php?error=invalidpass");
             }
