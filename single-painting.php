@@ -7,9 +7,14 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
     $painting = findPainting($_GET['id']);
 }
 
-if (isset($_SESSION["key"])){
-    
+// sets the default visibility to hidden for the add to favorites button
+$visibility = 'hidden';
+
+// if the the customer is logged in and the painting is not already a favorite display the add to favorites button
+if (isset($_SESSION["CustID"]) && (!isFavorite($painting))){
+$visibility = "visible";
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -33,7 +38,7 @@ if (isset($_SESSION["key"])){
         </div>
         <div class="paintContent">
             <?php
-                displayPainting($painting);
+                displayPainting($painting, $visibility);
             ?>
         </div>
     </main>

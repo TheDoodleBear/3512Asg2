@@ -202,10 +202,6 @@ button {
     max-width: 175px;
     height: auto;
 }
-.btnAddFav a {
-    color: white;
-    text-decoration: none;
-}
 
 button:hover {
     border: 1px solid #184fe7;
@@ -269,6 +265,14 @@ button.btnSelected {
     max-width: 220px;
     max-height: 220px;
 }
+
+
+/* styling for add to favorites button link */
+.btnAddFav a {
+    color: white;
+    text-decoration: none;
+}
+
 
 @media screen and (max-width: 680px) {
     /* Change the divided sections to 2 rows*/

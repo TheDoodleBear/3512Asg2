@@ -129,12 +129,16 @@ function pAnnotation($pID)
     }
 }
 
-function displayPainting($painting)
-{ // forward slash removed for testing on ryan's instance on /img/
+function displayPainting($painting, $visibility)
+{ 
+    // forward slash removed for testing on ryan's instance on /img/
     echo "<div class='pImg'><img src='img/paintings/full/" . $painting['ImageFileName'] . ".jpg' alt='" . $painting['Title'] . "' /></div>";
     echo "<div class='pInfo'>";
     echo "<h2>" . $painting['Title'] . "</h2>";
-    echo "<button class='btnAddFav'><a href='addToFavorites.php?id=" . $painting['PaintingID'] . "'>Add to Favorites</a></button>";
+
+    // create the button and set its visibility based on logged in and favorites state
+    echo "<button class='btnAddFav' style='visibility:" . $visibility ."'><a href='addToFavorites.php?id=" . $painting['PaintingID'] . "'>Add to Favorites</a></button>";
+    
     echo "<label>" . $painting['FirstName'] . " " . $painting['LastName'] . "</label>";
     echo "<label>" . $painting['GalleryName'] . ", " . $painting['YearOfWork'] . "</label>";
     echo "</div>";
@@ -165,7 +169,7 @@ function displayPainting($painting)
     //loops through the array and outputs the color name and a span with background color set as current color
     foreach ($dominantColors as $detail) {
         echo "<div class='squares'>";
-        echo "<span>" . $detail['name']. "</span> <span>" . $detail['web'] . "</span>" . "<div class='colorSquare' style='background-color: " . $detail['web'] . "'> </div>";
+        echo "<span>" . $detail['name'] . "</span> <span>" . $detail['web'] . "</span>" . "<div class='colorSquare' style='background-color: " . $detail['web'] . "'> </div>";
         echo "</div>";
     }
     echo "</div>";
@@ -173,8 +177,21 @@ function displayPainting($painting)
     echo "</div>";
 }
 
-function displaybtnAddFav(){
-    if (isset($_SESSION['key'])){
+function createFavBtn($painting)
+{
+    echo "<button class='btnAddFav'><a href='addToFavorites.php?id=" . $painting['PaintingID'] . "'>Add to Favorites</a></button>";
+}
 
+// if Session favorites array has a matching PaintingID then return true
+function isFavorite($painting)
+{
+    $id = $painting['PaintingID'];
+    $fav = $_SESSION["favorites"];
+    for ($i = 0; $i < count($fav); $i++) {
+        if ($fav[$i] == $id) {
+            return true;
+            break;
+        }
+        return false;
     }
 }
