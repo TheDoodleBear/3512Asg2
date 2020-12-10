@@ -16,9 +16,9 @@ if (isset($_SESSION['CustID'])) {
     <meta name="description" content="COMP3512 Assignment02">
     <meta name="author" content="Lorenzo Young">
     <title>COMP 3512 Assign2</title>  
-    <link rel="stylesheet" type="text/css" href="css/style.php" media="screen"/>
+    <!-- <link rel="stylesheet" type="text/css" href="css/style.php" media="screen"/> -->
     <style>
-        <?php #include "./css/style.css" ?>
+        <?php include "./css/style.css" ?>
     </style>
     <script src="js/jscript.js"></script>
 </head>

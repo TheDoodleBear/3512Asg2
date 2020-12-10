@@ -1,8 +1,5 @@
-<?php
-header("Content-type: text/css; charset: UTF-8");
-?>
 /*
-Reseting styling for the elements in each pages.
+Reseting styling for the elements in each pages. 
 Source inspired by:
 html5doctor.com Reset Stylesheet
 Author: Richard Clark - http://richclarkdesign.com
@@ -53,18 +50,18 @@ main {
     width: 100%;
 }
 
+.homeMain {
+    height: 80vh;
+}
+
 .heroWrapper1,
 .signupWrapper,
-.loginWrapper {
+.loginWrapper,
+.homeWrapper {
     display: inherit;
     background-color: whitesmoke;
     place-items: center;
     border-radius: 15px;
-}
-
-.heroWrapper1,
-.loginWrapper,
-.signupWrapper {
     position: relative;
     width: 1280px;
     height: 720px;
@@ -73,11 +70,24 @@ main {
 .loginWrapper,
 .signupWrapper {
     position: relative;
-    grid-template-rows: auto 1fr;
+    grid-template-rows: 150px 1fr;
     background-image: url('/img/photos/bg03.jpg');
     background-position: center center;
     background-size: cover;
     background-repeat: no-repeat;
+}
+
+.homeWrapper {
+    margin: 0 auto;
+    padding: 25px;
+    background-color: bisque;
+    width: 95%;
+    height: auto;
+    display: grid;
+    grid-gap: 30px;
+    /*grid-template: 80px 80px auto auto auto / 1fr 1fr;*/
+    align-content: start;
+    grid-template-areas: "a a a a a a" "c c c b b b" "c c c d d d" "e e e d d d" "e e e d d d";
 }
 
 
@@ -136,13 +146,8 @@ main {
 .loginForm>.container {
     display: inherit;
     place-items: center;
-    grid-template: auto auto 55px / auto;
-    grid-gap: 10px;
+    grid-template: auto auto auto/ auto;
     width: 100%;
-    background-color: #f5f5f580;
-    border-radius: 10px;
-    padding: 1em;
-    box-sizing: border-box;
 }
 
 
@@ -197,24 +202,25 @@ button:hover {
 
 input[type=text],
 input[type=password] {
-    width: 100%;
-    max-width: 35em;
+    width: 85%;
+    max-width: 600px;
     height: 60px;
     padding: 12px 20px;
     margin: 8px 0;
     border: 1px solid #ccc;
     box-sizing: border-box;
     border-radius: 5px;
-    align-self: center;
-}
-
-.textbx {
-    display: grid;
-    grid-template: auto 70px / auto;
-    grid-auto-rows: auto;
 }
 
 .indexForm>input[type=text] {
+    grid-row: 2/3;
+}
+
+.container>input[type=text] {
+    grid-row: 1/2;
+}
+
+.container>input[type=password] {
     grid-row: 2/3;
 }
 
@@ -224,7 +230,7 @@ input[type=password] {
 #imgCred {
     position: fixed;
     left: 50%;
-    bottom: 7%;
+    bottom: 20%;
     transform: translate(-50%, -50%);
     margin: 0 auto;
     color: whitesmoke;
@@ -240,10 +246,75 @@ input[type=password] {
     text-align: center;
 }
 
+.userInfo {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.favPaint,
+.likePaint,
+.userInfo {
+    display: grid;
+    grid-gap: 10px;
+    place-items: center;
+    max-width: 100%;
+}
+
+.favPaint>h1,
+.likePaint>h1,
+.userInfo>h1 {
+    grid-column: 1/4;
+}
+
+.paintItems {
+    display: flex;
+    flex-wrap: wrap;
+    grid-gap: 10px;
+    justify-content: center;
+}
+
+.square {
+    background-color: cornflowerblue;
+    width: 100px;
+    height: 100px;
+    border: solid black 2px;
+}
+
+.homeWrapper>header {
+    grid-area: a;
+    padding: 30px 0;
+}
+
+.homeWrapper>.searchBox {
+    grid-area: b;
+}
+
+.homeWrapper>.userInfo {
+    grid-area: c;
+}
+
+.likePaint {
+    grid-area: d;
+}
+
+.favPaint {
+    grid-area: e;
+}
+
+.searchBox {
+    width: 95%;
+    padding: 20px;
+}
+
+.searchBox>input[type=text] {
+    width: 100%;
+    max-width: 100%;
+    background-color: aqua;
+}
+
 
 /* Change some element's positioning and style based on the width of the screen */
 
-@media screen and (max-width: 680px) {
+@media screen and (max-width: 580px) {
     .indexForm>.frmBtn {
         grid-template: auto auto / auto;
         place-items: center;
@@ -253,9 +324,9 @@ input[type=password] {
         place-items: center;
     }
     #imgCred {
-        width: 100%;
-        bottom: 10%;
-        transform: translate(-25%, -25%);
+        position: absolute;
+        margin-left: 5px;
+        bottom: 5px;
     }
     .indexForm,
     .loginForm {
@@ -268,9 +339,10 @@ input[type=password] {
     }
     .heroWrapper1,
     .loginWrapper,
-    .signupWrapper {
+    .signupWrapper,
+    .homeWrapper {
         position: relative;
         width: 90%;
-        height: 80%;
+        height: 50%;
     }
 }

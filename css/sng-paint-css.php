@@ -2,7 +2,7 @@
 header("Content-type: text/css; charset: UTF-8");
 ?>
 /*
-Reseting styling for the elements in each pages. 
+Reseting styling for the elements in each pages.
 Source inspired by:
 html5doctor.com Reset Stylesheet
 Author: Richard Clark - http://richclarkdesign.com
@@ -34,15 +34,16 @@ section,
 html,
 body,
 main {
-    margin: 0;
-    padding: 0;
-    border: 0;
-    outline: 0;
+margin: 0;
+padding: 0;
+border: 0;
+outline: 0;
 }
 
 body {
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 100%;
+font-family: Arial, Helvetica, sans-serif;
+font-size: 100%;
+background-color: #6D676E;
 }
 
 
@@ -51,13 +52,13 @@ body {
 #singlePaintPage>*,
 .paintContent>*,
 .headr>* {
-    width: 100%;
+width: 100%;
 }
 
 
 /* <main> wrapper styling. Set's the display to grid for easy positioning*/
 
-#singlePaintPage {
+    #singlePaintPage {
     display: grid;
     place-items: center;
     min-width: 480px;
@@ -67,131 +68,133 @@ body {
     padding: 15px;
     height: auto;
     box-sizing: border-box;
-}
+    }
 
 
-/* Sets the styling for both Header and body*/
+    /* Sets the styling for both Header and body*/
 
-.paintContent,
-.headr {
+    .paintContent,
+    .headr {
     border-radius: 10px;
     padding: 15px;
     width: 100%;
     max-width: 1920px;
     height: auto;
     box-sizing: border-box;
-}
+    }
 
 
-/* Styling for the Header*/
+    /* Styling for the Header*/
 
-.headr {
+    .headr {
     text-align: center;
     padding: 15px 0px;
-    background-color: rgb(233, 232, 232);
-}
+    background-color: #F7C59F;
+    }
 
 
-/* Styling for the body and divides body into 4 sections*/
+    /* Styling for the body and divides body into 4 sections*/
 
-.paintContent {
+    .paintContent {
     display: grid;
     grid-gap: 1em;
     grid-template: 25% auto / auto 45%;
-    background-color: rgb(233, 232, 232);
+    background-color: #C7CCDB;
+    box-sizing: border-box;
+    border-radius: 5px;
     align-items: center;
     justify-items: center;
-}
+    }
 
 
-/* Position Image to the right spanning two rows*/
+    /* Position Image to the right spanning two rows*/
 
-.pImg {
+    .pImg {
     grid-row: 1/3;
     display: flex;
     place-content: center;
-}
+    }
 
 
-/* Set image size to fill entire div*/
+    /* Set image size to fill entire div*/
 
-.pImg>img {
+    .pImg>img {
     width: auto;
     max-width: 50vw;
     max-height: 85vh;
-}
+    }
 
 
-/* Set div display to grid and divide into section*/
+    /* Set div display to grid and divide into section*/
 
-.pInfo {
+    .pInfo {
     display: grid;
     grid-template: repeat(3, 1fr) / 1fr 1fr;
     width: 100%;
     height: 100%;
-}
+    }
 
 
-/* Add padding to space elements from border and vertically center them*/
+    /* Add padding to space elements from border and vertically center them*/
 
-.pInfo>* {
+    .pInfo>* {
     padding: 10px;
     align-self: center;
-}
+    }
 
-.pInfo>button {
+    .pInfo>button {
     justify-self: center;
     grid-column: 2/3;
     grid-row: 1/3;
-}
+    }
 
-div.pInfo>label:nth-of-type(2) {
+    div.pInfo>label:nth-of-type(2) {
     grid-row: 3/4;
-}
+    }
 
-.dBox {
+    .dBox {
     height: 100%;
     width: 100%;
-}
+    }
 
-.pTabs {
+    .pTabs {
     display: inherit;
     grid-template-rows: 35px auto;
     height: 100%;
-}
+    }
 
-.pDesc,
-.pDet,
-.pColr {
+    .pDesc,
+    .pDet,
+    .pColr {
     display: none;
     box-sizing: border-box;
     padding: 1em;
-}
+    }
 
-.pDesc {
+    .pDesc {
     text-align: justify;
-}
+    }
 
-.pDet {
+    .pDet {
     grid-template: repeat(6, min-content)/ 25% auto;
     grid-row-gap: 20px;
     grid-auto-rows: min-content;
-}
+    }
 
-.pDet>a {
+    .pDet>a {
     white-space: pre-wrap;
     word-wrap: break-word;
     word-break: break-all;
     white-space: normal;
     display: block;
-}
+    }
 
-div.btnSelected {
+    div.btnSelected {
     border-top: solid grey 3px;
     display: grid;
-}
+    }
 
-button {
+    button {
     background-color: #184fe7;
     color: white;
     padding: 10px 0;
@@ -201,9 +204,9 @@ button {
     width: 100%;
     max-width: 175px;
     height: auto;
-}
+    }
 
-button:hover {
+    button:hover {
     border: 1px solid #184fe7;
     /* Emboss source code: https://stackoverflow.com/questions/31259252/making-emboss-buttons */
     -webkit-box-shadow: inset 1px 6px 12px lightskyblue, inset -1px -10px 5px blue, 1px 2px 1px blue;
@@ -212,25 +215,25 @@ button:hover {
     background-color: #184fe7;
     color: white;
     text-shadow: 1px 1px 1px black;
-}
+    }
 
-#pButtons {
+    #pButtons {
     display: flex;
     box-sizing: border-box;
     grid-gap: 1px;
     width: 95%;
     max-width: 600px;
-}
+    }
 
-#pButtons>button {
+    #pButtons>button {
     border-radius: 15px 15px 0px 0px;
-}
+    }
 
-#pButtons>button:focus {
+    #pButtons>button:focus {
     outline: none;
-}
+    }
 
-button.btnSelected {
+    button.btnSelected {
     /* Emboss source code: https://stackoverflow.com/questions/31259252/making-emboss-buttons */
     -webkit-box-shadow: inset 1px 6px 12px lightskyblue, inset -1px -10px 5px blue, 1px 2px 1px grey;
     -moz-box-shadow: inset 1px 6px 12px lightskyblue, inset -1px -10px 5px blue, 1px 2px 1px grey;
@@ -242,109 +245,105 @@ button.btnSelected {
     height: 40px;
     position: relative;
     bottom: 5px;
-}
+    }
 
-#colorContainer {
+    #colorContainer {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     align-content: stretch;
-}
+    }
 
-.squares {
+    .squares {
     margin: 15px;
     place-items: center;
     display: grid;
     grid-auto-rows: max-content;
     grid-auto-columns: max-content;
-}
+    }
 
-.colorSquare {
+    .colorSquare {
     width: 10vw;
     height: 10vw;
     max-width: 220px;
     max-height: 220px;
-}
+    }
+    .btnAddFav>a{
+        text-decoration: none;
+        color: white; 
+    }
 
-
-/* styling for add to favorites button link */
-.btnAddFav a {
-    color: white;
-    text-decoration: none;
-}
-
-
-@media screen and (max-width: 680px) {
+    @media screen and (max-width: 680px) {
     /* Change the divided sections to 2 rows*/
     #singlePaintPage {
-        grid-template-rows: 80px 1fr;
-        grid-template-columns: 1fr;
-        padding: 10px;
-        grid-gap: 5px;
+    grid-template-rows: 80px 1fr;
+    grid-template-columns: 1fr;
+    padding: 10px;
+    grid-gap: 5px;
     }
     /* Places elements inside into 1 column*/
     .paintContent {
-        max-width: 100%;
-        grid-template: repeat(3, auto) / 1fr;
-        grid-gap: 10px;
-        justify-items: stretch;
-        background-color: white;
-        padding: 0px;
+    max-width: 100%;
+    grid-template: repeat(3, auto) / 1fr;
+    grid-gap: 10px;
+    justify-items: stretch;
+    background-color: white;
+    padding: 0px;
     }
     .paintContent>* {
-        background-color: rgb(233, 232, 232);
-        box-sizing: border-box;
-        border-radius: 5px;
-        padding: 1em;
-        max-width: 100%;
+    background-color: #C7CCDB;
+    box-sizing: border-box;
+    border-radius: 5px;
+    padding: 1em;
+    max-width: 100%;
     }
     /* Places the image in the top row below the header*/
     .pImg {
-        grid-row: 1/2;
+    grid-row: 1/2;
     }
     .pImg>img {
-        width: 100%;
-        max-width: 100%;
-        max-height: 100%;
+    width: 100%;
+    max-width: 100%;
+    max-height: 100%;
     }
     /* Adjust position and size of each elements according to current view width*/
     .pInfo {
-        grid-template: repeat(4, auto) / 1fr 1fr;
-        max-width: 100%;
+    grid-template: repeat(4, auto) / 1fr 1fr;
+    max-width: 100%;
     }
     .pInfo>button {
-        grid-row: 1/4;
+    grid-row: 1/4;
     }
     .dBox {
-        max-width: 100%;
-        height: auto;
+    max-width: 100%;
+    height: auto;
     }
     .pDesc>p {
-        box-sizing: border-box;
-        max-width: 100%;
+    box-sizing: border-box;
+    max-width: 100%;
     }
     .pDet {
-        box-sizing: border-box;
-        grid-template: repeat(5, 1fr) auto / auto 60%;
-        grid-gap: 10px;
-        align-items: center;
+    box-sizing: border-box;
+    grid-template: repeat(5, 1fr) auto / auto 60%;
+    grid-gap: 10px;
+    align-items: center;
     }
     .pDet>a {
-        white-space: pre-wrap;
-        word-wrap: break-word;
-        word-break: break-all;
-        white-space: normal;
-        display: block;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    word-break: break-all;
+    white-space: normal;
+    display: block;
     }
     .pColr {
-        max-width: 100%;
+    max-width: 100%;
     }
     .colorSquare {
-        width: 10vh;
-        height: 10vh;
+    width: 10vh;
+    height: 10vh;
     }
     button.btnSelected {
-        height: 40px;
-        bottom: 5px;
+    height: 40px;
+    bottom: 5px;
     }
-}
+    }

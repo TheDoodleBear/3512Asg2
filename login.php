@@ -1,4 +1,5 @@
 <?php
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -8,8 +9,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="COMP3512 Assignment02">
     <meta name="author" content="">
-    <title>COMP 3512 Assign1</title>
-    <link rel="stylesheet" type="text/css" href="css/style.php" media="screen"/>
+    <title>COMP 3512 Assign1</title>    
+    <style>
+        <?php include "./css/style.css" ?>
+    </style>
     <script src="js/jscript.js"></script>
 </head>
 
@@ -18,7 +21,7 @@
     <div class="loginWrapper">
         <h1>User Log In</h1>
 
-        <form class="loginForm" action="action_page.php" method="post">
+        <form class="loginForm" action="logincheck.php" method="post">
             <div class="container">
                 <div class="textbx">
                     <label>Enter Email</label>
