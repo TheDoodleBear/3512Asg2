@@ -5,7 +5,7 @@ $conn = DatabaseConn::establishConn(array(DBCONNSTRING, DBUSER, DBPASS));
 $dbConnect = new loginDB($conn);
 if (isset($_POST['submit'])) {
     if (empty($_POST['uname']) || empty($_POST['psw'])) {
-        header("Location: /ogin.php?error=empty");
+        header("Location: /login.php?error=empty");
         exit();
     } else {
         $userCred = $dbConnect->checkUser($_POST['uname']);
