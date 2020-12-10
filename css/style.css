@@ -52,7 +52,8 @@ main {
 
 .heroWrapper1,
 .signupWrapper,
-.loginWrapper {
+.loginWrapper,
+.homeWrapper {
     display: inherit;
     background-color: whitesmoke;
     place-items: center;
@@ -61,7 +62,8 @@ main {
 
 .heroWrapper1,
 .loginWrapper,
-.signupWrapper {
+.signupWrapper,
+.homeWrapper {
     position: relative;
     width: 95vw;
     max-width: 1920px;
@@ -109,6 +111,24 @@ main {
     100% {
         background-image: url('/img/photos/bg01.jpg');
     }
+}
+
+.homeMain {
+    padding: 20px;
+    align-items: baseline;
+}
+
+.homeWrapper {
+    grid-template: repeat(6, 1fr)/ 1fr 1fr;
+}
+
+.homeWrapper>header {
+    grid-column: 1/3;
+    grid-row: 1/2;
+}
+
+.homeWrapper div {
+    background-color: #C7CCDB;
 }
 
 
@@ -245,6 +265,16 @@ input[type=password] {
     border-radius: 5px;
     margin-bottom: -10%;
     width: 180px;
+    text-align: center;
+}
+
+.errormsg {
+    background-color: white;
+    border-radius: 10px;
+    padding: 10px;
+    height: auto;
+    width: 25ch;
+    color: red;
     text-align: center;
 }
 
