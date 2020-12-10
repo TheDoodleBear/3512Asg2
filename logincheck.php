@@ -5,7 +5,7 @@ $conn = DatabaseConn::establishConn(array(DBCONNSTRING, DBUSER, DBPASS));
 $dbConnect = new loginDB($conn);
 if (isset($_POST['submit'])) {
     if (empty($_POST['uname']) || empty($_POST['psw'])) {
-        header("Location: login.php?error=empty");
+        header("Location: /ogin.php?error=empty");
         exit();
     } else {
         $userCred = $dbConnect->checkUser($_POST['uname']);
@@ -13,13 +13,13 @@ if (isset($_POST['submit'])) {
             if (password_verify($_POST['psw'], $userCred['Pass'])) {
                 session_start();
                 $_SESSION['CustID'] =  $userCred['CustomerID'];
-                header("Location: index.php");
+                header("Location: /index.php");
             } else {
-                header("Location: login.php?error=invalidpass");
+                header("Location: /login.php?error=invalidpass");
             }
         }
     }
 } else {
-    header("Location: login.php?error=nowork");
+    header("Location: /login.php?error=nowork");
     exit();
 }
