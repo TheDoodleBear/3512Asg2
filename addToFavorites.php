@@ -9,7 +9,8 @@ $fav = $_SESSION["favorites"];
 
 if (isset($_GET['id'])) {
     // now add passed painting ID to the array
-    $fav[] = $_GET['id'];
+    $data = ["id"=>$_GET['id'], "title"=>$_GET['title'], "ImageFileName"=>$_GET['img']];
+    $fav[] = $data;
 }
 
 //resave modified array back to session state

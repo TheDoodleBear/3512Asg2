@@ -2,18 +2,33 @@
 require_once 'includes/dbconfig.inc.php';
 require_once 'includes/db-class.inc.php';
 session_start();
+try {
+    $conn = DatabaseConn::establishConn(array(DBCONNSTRING, DBUSER, DBPASS));
+    // $conn = DatabaseConn::establishConn(array(DBCONNECTION, DBUSER, DBPASS));
 
-if (isset($_GET['id']) && !empty($_GET['id'])) {
-    $painting = findPainting($_GET['id']);
+    $dbConnect = new PaintingDB($conn);
+    if (isset($_GET['id']) && !empty($_GET['id'])) {
+        $painting = $dbConnect->findPainting($_GET['id']);
+    }
+    $conn = null;
+} catch (Exception $e) {
+    die($e->getMessage());
 }
 
-// sets the default visibility to hidden for the add to favorites button
-$visibility = 'hidden';
 
 // if the the customer is logged in and the painting is not already a favorite display the add to favorites button
-if (isset($_SESSION["CustID"]) && (!isFavorite($painting))){
-$visibility = "visible";
+// if (isset($_SESSION["CustID"])) {
+if (isset($_SESSION['favorites'])) {
+    if (isFavorite($painting)) {
+        // sets the default visibility to hidden fo
+        $visibility = 'hidden';
+    } else {
+        $visibility = "visible";
+    }
+}else {
+    $visibility = "visible";
 }
+// }
 
 ?>
 
@@ -27,7 +42,11 @@ $visibility = "visible";
     <meta name="author" content="">
     <title>COMP 3512 Assign1</title>
     <!-- check ref path for styling page if there is an error in your instance -->
-    <link rel="stylesheet" type="text/css" href="css/sng-paint-css.php" media="screen"/>
+    <link rel="stylesheet" type="text/css" href="css/sng-paint-css.php" media="screen" />
+    <!-- <style>
+        <?php #include "./css/sng-paint-css.css" 
+        ?>
+    </style> -->
     <script src="js/sng-paint.js"></script>
 </head>
 
@@ -38,7 +57,8 @@ $visibility = "visible";
         </div>
         <div class="paintContent">
             <?php
-                displayPainting($painting, $visibility);
+            // displayPainting($painting);
+            displayPainting($painting, $visibility);
             ?>
         </div>
     </main>

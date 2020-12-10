@@ -1,0 +1,140 @@
+/*
+Reseting styling for the elements in each pages.
+Source inspired by:
+html5doctor.com Reset Stylesheet
+Author: Richard Clark - http://richclarkdesign.com
+*/
+
+div,
+span,
+iframe,
+h1,
+h2,
+h3,
+p,
+img,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+caption,
+article,
+aside,
+figcaption,
+figure,
+footer,
+header,
+section,
+html,
+body {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-size: 100%;
+    background: transparent;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #6D676E;
+}
+
+#favoritesPage>*,
+.paintContent>*,
+.headr>* {
+    width: 100%;
+}
+
+#favoritesPage {
+    display: grid;
+    place-items: center;
+    max-width: 100%;
+    grid-template: 80px auto / auto;
+    grid-gap: 15px;
+    padding: 15px;
+    height: auto;
+    box-sizing: border-box;
+}
+
+.favContent,
+.headr {
+    border-radius: 10px;
+    padding: 15px;
+    width: 100%;
+    max-width: 1920px;
+    height: auto;
+    box-sizing: border-box;
+}
+
+
+/* Styling for the Header*/
+
+.headr {
+    text-align: center;
+    padding: 15px 0px;
+    background-color: #F7C59F;
+}
+
+.favContent {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: #C7CCDB;
+    padding: 5px;
+    box-sizing: border-box;
+    place-items: center;
+}
+
+.thumbnailDiv {
+    margin: 5px;
+    flex: 1 1;
+    background-color: lightskyblue;
+    padding: 5px;
+    display: grid;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 350px;
+    border-radius: 10px;
+    place-items: center;
+}
+
+.thumbnailDiv>a {
+    align-items: center;
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+a {
+    display: flex;
+    justify-content: center;
+    color: whitesmoke;
+}
+
+.paintingName {
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: auto auto;
+}
+
+.paintImg {
+    width: 100%;
+    border: black solid 2px;
+    border-radius: 50%;
+    align-self: center;
+}
+
+@media screen and (max-width: 680px) {
+    .favContent {
+        display: grid;
+        grid-template: repeat(auto-fill, minmax(auto, 180px)) / repeat(3, minmax(auto, 130px));
+        grid-gap: 5px;
+        background-color: #C7CCDB;
+    }
+    .thumbnailDiv {}
+}

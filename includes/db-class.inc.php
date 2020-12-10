@@ -1,47 +1,48 @@
 <?php
+// *Class to establish a connection to the database
 class DatabaseConn
 {
-    /* Returns a connection object to a database */
+    //* Returns a connection object to a database
     public static function establishConn($param = array())
     {
         $dbConn = $param[0];
         $user = $param[1];
         $pass = $param[2];
-        //Set pdo variable as PHP Data Object with parameters passed
+        // *Set pdo variable as PHP Data Object with parameters passed
         $pdo = new PDO($dbConn, $user, $pass);
-        //Sets attributes on the database handles
+        // *Sets attributes on the database handles
         $pdo->setAttribute(
-            //Error reporting
+            // *Error reporting
             PDO::ATTR_ERRMODE,
-            //Throw exception if encountered
+            // *Throw exception if encountered
             PDO::ERRMODE_EXCEPTION
         );
         $pdo->setAttribute(
-            //Set default fetch mode
+            // *Set default fetch mode
             PDO::ATTR_DEFAULT_FETCH_MODE,
-            //Tell PDO to return the result as an associative array.
+            // *Tell PDO to return the result as an associative array.
             PDO::FETCH_ASSOC
         );
         return $pdo;
     }
 
-    // Runs the specified SQL query using the passed connection and the passed array of parameters (null if none)
+    // *Runs the specified SQL query using the passed connection and the passed array of parameters (null if none)
 
     public static function runQuery($connection, $sql, $param = array())
     {
-        // Ensure parameters are in an array
+        // *Ensure parameters are in an array
         if (!is_array($param)) {
             $param = array($param);
         }
-        //Set null if not an array
+        // *Set null if not an array
         $statement = null;
         if (count($param) > 0) {
-            // Use a prepared statement if parameters
+            // *Use a prepared statement if parameters
             $statement = $connection->prepare($sql);
             $executedOk = $statement->execute($param);
             if (!$executedOk) throw new PDOException;
         } else {
-            // Execute a normal query
+            // *Execute a normal query
             $statement = $connection->query($sql);
             if (!$statement) throw new PDOException;
         }
@@ -49,6 +50,7 @@ class DatabaseConn
     }
 }
 
+// *Class that processes paintings functions
 class PaintingDB
 {
     public function __construct($connection)
@@ -67,15 +69,56 @@ class PaintingDB
     {
         $sql = getPaintingSQL();
         $sql = addSortAndLimit($sql);
-        $statement = DatabaseConn::runQuery(
-            $this->pdo,
-            $sql,
-            null
-        );
+        $statement = DatabaseConn::runQuery($this->pdo, $sql, null);
         return $statement->fetchAll();
+    }
+
+    function findPainting($search)
+    {
+        try {
+            // $pdo = new PDO(DBCONNSTRING, DBUSER, DBPASS);
+            // // $pdo = new PDO(DBCONNECTION, DBUSER, DBPASS);
+            // $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $sql = getPaintingSQL();
+            $sql .= " WHERE PaintingID LIKE ?";
+            // $statement = $pdo->prepare($sql);
+            // *Estalbish connection and run query to return searched data
+            $statement = DatabaseConn::runQuery($this->pdo, $sql, $search);
+            // *Prevents code injection to the SQL database.
+            $statement->bindValue(1, '%' . $search . '%');
+            $statement->execute();
+            $paintings = $statement->fetch(PDO::FETCH_ASSOC);
+            $pdo = null;
+            return $paintings;
+        } catch (PDOException $e) {
+            die($e->getMessage());
+        }
+    }
+
+    function findFavPainting($search)
+    {
+        try {
+            // $pdo = new PDO(DBCONNSTRING, DBUSER, DBPASS);
+            // // $pdo = new PDO(DBCONNECTION, DBUSER, DBPASS);
+            // $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $sql = getFavPaintingSQL();
+            $sql .= " WHERE PaintingID LIKE ?";
+            // $statement = $pdo->prepare($sql);
+            // *Estalbish connection and run query to return searched data
+            $statement = DatabaseConn::runQuery($this->pdo, $sql, $search);
+            // *Prevents code injection to the SQL database.
+            $statement->bindValue(1, '%' . $search . '%');
+            $statement->execute();
+            $paintings = $statement->fetch(PDO::FETCH_ASSOC);
+            $pdo = null;
+            return $paintings;
+        } catch (PDOException $e) {
+            die($e->getMessage());
+        }
     }
 }
 
+// SQL Strings related to paintings
 function getPaintingSQL()
 {
     $sql = "SELECT PaintingID, Paintings.ArtistID AS ArtistID, FirstName, LastName, Paintings.GalleryID as GalleryID, GalleryName, 
@@ -87,58 +130,28 @@ function getPaintingSQL()
     return $sql;
 }
 
+function getFavPaintingSQL()
+{
+    $sql = "SELECT PaintingID, ImageFileName, Title, FROM (( Paintings 
+    INNER JOIN Artists ON Paintings.ArtistID = Artists.ArtistID )
+    INNER JOIN Galleries ON Galleries.GalleryID = Paintings.GalleryID)";
+    return $sql;
+}
+
 function addSortAndLimit($sqlOld)
 {
     $sqlNew = $sqlOld . " ORDER BY YearOfWork limit 20";
     return $sqlNew;
 }
 
-function findPainting($search)
-{
-    try {
-        $pdo = new PDO(DBCONNSTRING, DBUSER, DBPASS);
-        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $sql = getPaintingSQL();
-        $sql .= " WHERE PaintingID LIKE ?";
-        $statement = $pdo->prepare($sql);
-        $statement->bindValue(1, '%' . $search . '%');
-        $statement->execute();
-        $paintings = $statement->fetch(PDO::FETCH_ASSOC);
-        $pdo = null;
-        return $paintings;
-    } catch (PDOException $e) {
-        die($e->getMessage());
-    }
-}
-
-function pAnnotation($pID)
-{
-    try {
-        $pdo = new PDO(DBCONNSTRING, DBUSER, DBPASS);
-        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $sql = "SELECT JsonAnnotations FROM Paintings";
-        $sql .= " WHERE PaintingID LIKE ?";
-        $statement = $pdo->prepare($sql);
-        $statement->bindValue(1, '%' . $pID . '%');
-        $statement->execute();
-        $paintings = $statement->fetch(PDO::FETCH_ASSOC);
-        $pdo = null;
-        return $paintings;
-    } catch (PDOException $e) {
-        die($e->getMessage());
-    }
-}
-
+// Creates the DOM elements to display information of a single painting. 
 function displayPainting($painting, $visibility)
-{ 
-    // forward slash removed for testing on ryan's instance on /img/
-    echo "<div class='pImg'><img src='img/paintings/full/" . $painting['ImageFileName'] . ".jpg' alt='" . $painting['Title'] . "' /></div>";
+{
+    echo "<div class='pImg'><img src='/img/paintings/full/" . $painting['ImageFileName'] . ".jpg' alt='" . $painting['Title'] . "' /></div>";
     echo "<div class='pInfo'>";
     echo "<h2>" . $painting['Title'] . "</h2>";
-
-    // create the button and set its visibility based on logged in and favorites state
-    echo "<button class='btnAddFav' style='visibility:" . $visibility ."'><a href='addToFavorites.php?id=" . $painting['PaintingID'] . "'>Add to Favorites</a></button>";
-    
+    // echo "<button>Add to Favorites</button>";
+    createFavBtn($painting, $visibility);
     echo "<label>" . $painting['FirstName'] . " " . $painting['LastName'] . "</label>";
     echo "<label>" . $painting['GalleryName'] . ", " . $painting['YearOfWork'] . "</label>";
     echo "</div>";
@@ -164,9 +177,7 @@ function displayPainting($painting, $visibility)
     $JsonAnnotations = $painting['JsonAnnotations'];
     //encodes the string as an Array
     $arrayOfAnnotations = json_decode($JsonAnnotations, true);
-    //creates an array with just the dominant colors array info
     $dominantColors = $arrayOfAnnotations["dominantColors"];
-    //loops through the array and outputs the color name and a span with background color set as current color
     foreach ($dominantColors as $detail) {
         echo "<div class='squares'>";
         echo "<span>" . $detail['name'] . "</span> <span>" . $detail['web'] . "</span>" . "<div class='colorSquare' style='background-color: " . $detail['web'] . "'> </div>";
@@ -177,21 +188,66 @@ function displayPainting($painting, $visibility)
     echo "</div>";
 }
 
-function createFavBtn($painting)
+function displayThumbPaint($array)
 {
-    echo "<button class='btnAddFav'><a href='addToFavorites.php?id=" . $painting['PaintingID'] . "'>Add to Favorites</a></button>";
+    echo  "<div class='thumbnailDiv'>";
+    echo  "<a href='./single-painting.php?id=" . $array['id'] . "'><img src='./img/paintings/square/" . $array['ImageFileName'] . ".jpg' class='paintImg'/></a>";
+    echo  "<div class='paintingName'>";
+    echo  "<a href='./single-painting.php?id=" . $array['id'] . "'><span>" . $array['title'] . "</span></a>";
+    echo  "<input type='checkbox' class='paintCheck' name='" . $array['id'] . "'>";
+    echo  "</div>";
+    echo  "</div>";
+}
+
+function createFavBtn($painting, $visibility)
+{
+    // *Creates the button to add painting to favorites.
+    echo "<button class='btnAddFav' style='visibility:" . $visibility . "'><a href='addToFavorites.php?id=" . $painting['PaintingID'] . "&img=" . $painting['ImageFileName'] . "&title=" . $painting['Title'] . "'>Add to Favorites</a></button>";
 }
 
 // if Session favorites array has a matching PaintingID then return true
 function isFavorite($painting)
 {
     $id = $painting['PaintingID'];
-    $fav = $_SESSION["favorites"];
-    for ($i = 0; $i < count($fav); $i++) {
-        if ($fav[$i] == $id) {
-            return true;
-            break;
-        }
+    $fav = $_SESSION['favorites'];
+    // *converts  $_SESSION['favorites'] to a one dimentional array
+    $searchArr = array_column($fav, 'id');
+    // *Check if the painting exist
+    if (in_array($id, $searchArr)) {
+        return true;
+    } else {
         return false;
     }
+}
+
+
+class loginDB
+{
+    public function __construct($connection)
+    {
+        $this->pdo = $connection;
+    }
+
+    function checkUser($search)
+    {
+        try {
+            // $pdo = new PDO(DBCONNSTRING, DBUSER, DBPASS);
+            // // $pdo = new PDO(DBCONNECTION, DBUSER, DBPASS);
+            // $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $sql = "SELECT CustomerID, UserName, Pass FROM customerlogon";
+            $sql .= " WHERE UserName LIKE '%$search%'";
+            // $statement = $pdo->prepare($sql);
+            // *Estalbish connection and run query to return searched data
+            $statement = DatabaseConn::runQuery($this->pdo, $sql, $search);
+            // *Prevents code injection to the SQL database.
+            $statement->bindValue(1, '%' . $search . '%');
+            $statement->execute();
+            $userVal = $statement->fetch(PDO::FETCH_ASSOC);
+            $pdo = null;
+            return $userVal;
+        } catch (PDOException $e) {
+            die($e->getMessage());
+        }
+    }
+
 }
