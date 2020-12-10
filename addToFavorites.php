@@ -15,5 +15,5 @@
     $_SESSION["favorites"] = $fav;
 
     //redirect back to page that requested this
-    header("Location:" . $_Server["HTTP_REFFERER"]);
+    header("Location:" . $_SERVER["HTTP_REFERER"]);
 ?>
