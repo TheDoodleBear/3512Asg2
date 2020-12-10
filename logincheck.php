@@ -6,7 +6,7 @@ try {
     $dbConnect = new loginDB($conn);
     if (isset($_POST['submit'])) {
         if (empty($_POST['uname']) || empty($_POST['psw'])) {
-            header("Location: /login.php?error=empty");
+            header("Location:http://database-comp3512-a2-dec8.herokuapp.com/login.php?error=empty");
             exit();
         } else {
             $userCred = $dbConnect->checkUser($_POST['uname']);
@@ -14,14 +14,14 @@ try {
                 if (password_verify($_POST['psw'], $userCred['Pass'])) {
                     session_start();
                     $_SESSION['CustID'] =  $userCred['CustomerID'];
-                    header("Location: /index.php");
+                    header("Location:http://database-comp3512-a2-dec8.herokuapp.com/index.php");
                 } else {
-                    header("Location: /login.php?error=invalidpass");
+                    header("Location:http://database-comp3512-a2-dec8.herokuapp.com/login.php?error=invalidpass");
                 }
             }
         }
     } else {
-        header("Location: /login.php?error=nowork");
+        header("Location:http://database-comp3512-a2-dec8.herokuapp.com/login.php?error=nowork");
         exit();
     }
 } catch (Exception $e) {
