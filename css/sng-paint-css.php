@@ -202,6 +202,10 @@ button {
     max-width: 175px;
     height: auto;
 }
+.btnAddFav a {
+    color: white;
+    text-decoration: none;
+}
 
 button:hover {
     border: 1px solid #184fe7;
