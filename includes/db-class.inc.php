@@ -134,7 +134,7 @@ function displayPainting($painting)
     echo "<div class='pImg'><img src='img/paintings/full/" . $painting['ImageFileName'] . ".jpg' alt='" . $painting['Title'] . "' /></div>";
     echo "<div class='pInfo'>";
     echo "<h2>" . $painting['Title'] . "</h2>";
-    echo "<button class='btnAddFav'>Add to Favorites</button>";
+    echo "<button class='btnAddFav'><a href='addToFavorites.php?id=" . $painting['PaintingID'] . "'>Add to Favorites</a></button>";
     echo "<label>" . $painting['FirstName'] . " " . $painting['LastName'] . "</label>";
     echo "<label>" . $painting['GalleryName'] . ", " . $painting['YearOfWork'] . "</label>";
     echo "</div>";
@@ -171,4 +171,10 @@ function displayPainting($painting)
     echo "</div>";
     echo "</div>";
     echo "</div>";
+}
+
+function displaybtnAddFav(){
+    if (isset($_SESSION['key'])){
+
+    }
 }

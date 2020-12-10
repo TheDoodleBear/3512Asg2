@@ -1,9 +1,14 @@
 <?php
 require_once 'includes/dbconfig.inc.php';
 require_once 'includes/db-class.inc.php';
+session_start();
 
 if (isset($_GET['id']) && !empty($_GET['id'])) {
     $painting = findPainting($_GET['id']);
+}
+
+if (isset($_SESSION["key"])){
+    
 }
 ?>
 
