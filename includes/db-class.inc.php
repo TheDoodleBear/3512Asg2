@@ -188,7 +188,8 @@ function displayPainting($painting, $visibility)
     echo "</div>";
 }
 
-function displayThumbPaint($array){
+function displayThumbPaint($array)
+{
     echo  "<div class='thumbnailDiv'>";
     echo  "<a href='./single-painting.php?id=" . $array['id'] . "'><img src='./img/paintings/square/" . $array['ImageFileName'] . ".jpg' class='paintImg'/></a>";
     echo  "<div class='paintingName'>";
@@ -209,7 +210,7 @@ function isFavorite($painting)
 {
     $id = $painting['PaintingID'];
     $fav = $_SESSION['favorites'];
-    // *convert $_SESSION['favorites'] to a one dimentional array
+    // *converts  $_SESSION['favorites'] to a one dimentional array
     $searchArr = array_column($fav, 'id');
     // *Check if the painting exist
     if (in_array($id, $searchArr)) {
@@ -217,4 +218,36 @@ function isFavorite($painting)
     } else {
         return false;
     }
+}
+
+
+class loginDB
+{
+    public function __construct($connection)
+    {
+        $this->pdo = $connection;
+    }
+
+    function checkUser($search)
+    {
+        try {
+            // $pdo = new PDO(DBCONNSTRING, DBUSER, DBPASS);
+            // // $pdo = new PDO(DBCONNECTION, DBUSER, DBPASS);
+            // $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $sql = "SELECT CustomerID, UserName, Pass FROM customerlogon";
+            $sql .= " WHERE UserName LIKE '%$search%'";
+            // $statement = $pdo->prepare($sql);
+            // *Estalbish connection and run query to return searched data
+            $statement = DatabaseConn::runQuery($this->pdo, $sql, $search);
+            // *Prevents code injection to the SQL database.
+            $statement->bindValue(1, '%' . $search . '%');
+            $statement->execute();
+            $userVal = $statement->fetch(PDO::FETCH_ASSOC);
+            $pdo = null;
+            return $userVal;
+        } catch (PDOException $e) {
+            die($e->getMessage());
+        }
+    }
+
 }
