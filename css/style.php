@@ -1,49 +1,10 @@
 <?php
 header("Content-type: text/css; charset: UTF-8");
 ?>
-/*
-Reseting styling for the elements in each pages.
-Source inspired by:
-html5doctor.com Reset Stylesheet
-Author: Richard Clark - http://richclarkdesign.com
-*/
-
-div,
-span,
-iframe,
-h1,
-h2,
-h3,
-p,
-img,
-ol,
-ul,
-li,
-fieldset,
-form,
-label,
-legend,
-caption,
-article,
-aside,
-figcaption,
-figure,
-footer,
-header,
-section,
-html,
-body {
-    margin: 0;
-    padding: 0;
-    border: 0;
-    outline: 0;
-    font-size: 100%;
-    background: transparent;
-}
-
 body {
     font-family: Arial, Helvetica, sans-serif;
-    background-color: whitesmoke;
+    font-size: 100%;
+    background-color: #6D676E;
 }
 
 main {

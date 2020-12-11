@@ -65,11 +65,19 @@ class PaintingDB
         return $statement->fetchAll();
     }
 
-    public function getTop20()
+    public function getTopPGal10($search)
     {
-        $sql = getPaintingSQL();
+        $sql = getPaintingSQL() . " WHERE Paintings.GalleryID=?";
         $sql = addSortAndLimit($sql);
-        $statement = DatabaseConn::runQuery($this->pdo, $sql, null);
+        $statement = DatabaseConn::runQuery($this->pdo, $sql, array($search));
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getTopPArt10($search)
+    {
+        $sql = getPaintingSQL() . " WHERE Paintings.ArtistID=?";
+        $sql = addSortAndLimit($sql);
+        $statement = DatabaseConn::runQuery($this->pdo, $sql, array($search));
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
@@ -95,7 +103,7 @@ class PaintingDB
         }
     }
 
-    
+
     function findFavPainting($search)
     {
         try {
@@ -116,6 +124,25 @@ class PaintingDB
         } catch (PDOException $e) {
             die($e->getMessage());
         }
+    }
+}
+
+
+function getTop15()
+{
+    try {
+        $pdo = new PDO(DBCONNSTRING, DBUSER, DBPASS);
+        $pdo->setAttribute(
+            PDO::ATTR_ERRMODE,
+            PDO::ERRMODE_EXCEPTION
+        );
+        $sql = getPaintingSQL() . " LIMIT 15";
+        $result = $pdo->query($sql);
+        $paintings = $result->fetchAll(PDO::FETCH_ASSOC);
+        $pdo = null;
+        return $paintings;
+    } catch (PDOException $e) {
+        die($e->getMessage());
     }
 }
 
@@ -141,9 +168,11 @@ function getFavPaintingSQL()
 
 function addSortAndLimit($sqlOld)
 {
-    $sqlNew = $sqlOld . " ORDER BY YearOfWork limit 20";
+    $sqlNew = $sqlOld . " LIMIT 10";
     return $sqlNew;
 }
+
+
 
 // Creates the DOM elements to display information of a single painting. 
 function displayPainting($painting, $visibility)
@@ -188,13 +217,13 @@ function displayPainting($painting, $visibility)
     echo "</div>";
 }
 
-function displayThumbPaint($array)
+function displayThumbPaint($array, $visibility)
 {
     echo  "<div class='thumbnailDiv'>";
-    echo  "<a href='./single-painting.php?id=" . $array['id'] . "'><img src='./img/paintings/square/" . $array['ImageFileName'] . ".jpg' class='paintImg'/></a>";
+    echo  "<a href='./single-painting.php?id=" . $array['PaintingID'] . "'><img src='./img/paintings/square/" . $array['ImageFileName'] . ".jpg' class='paintImg'/></a>";
     echo  "<div class='paintingName'>";
-    echo  "<a href='./single-painting.php?id=" . $array['id'] . "'><span>" . $array['title'] . "</span></a>";
-    echo  "<input type='checkbox' class='paintCheck' name='" . $array['id'] . "'>";
+    echo  "<a href='./single-painting.php?id=" . $array['PaintingID'] . "'><span>" . $array['Title'] . "</span></a>";
+    echo  "<input type='checkbox' class='paintCheck' style='visibility:" . $visibility . "' name='" . $array['PaintingID'] . "'>";
     echo  "</div>";
     echo  "</div>";
 }
@@ -211,7 +240,7 @@ function isFavorite($painting)
     $id = $painting['PaintingID'];
     $fav = $_SESSION['favorites'];
     // *converts  $_SESSION['favorites'] to a one dimentional array
-    $searchArr = array_column($fav, 'id');
+    $searchArr = array_column($fav, 'PaintingID');
     // *Check if the painting exist
     if (in_array($id, $searchArr)) {
         return true;
@@ -271,71 +300,4 @@ class loginDB
             die($e->getMessage());
         }
     }
-
-}
-
-
-function displayHome($userInfo){
-    echo "<main class='homeMain'>";
-    echo "<div class='homeWrapper'>";
-    echo "<header class='headr'>";
-    echo "<h1>Home Page</h1>";
-    echo "</header>";
-    echo " <div class='userInfo'>";
-    echo "<h1>User Information</h1>";
-    displayUserInfo($userInfo);
-    echo "</div>";
-    echo "<div class='searchBox'><input type='text' placeholder='SEARCH BOX FOR Paintings' name='pSearch'></div>";
-    echo "<div class='favPaint'>";
-    echo "<h1>Favorite Paintings</h1>";
-    echo "<div class='paintItems'>";
-    if (!isset($_SESSION['favorites'])) {
-        echo "<h1>You don't have favorites set.</h2>";
-    } else {
-        foreach ($_SESSION['favorites'] as $fave) {
-            displayThumbPaint($fave);
-        }
-    }
-    echo "</div>";
-    echo "</div>";
-    echo "<div class='likePaint'>";
-    echo "<h1>Paintings You May Like</h1>";
-    echo "<div class='paintItems'>";
-    displayRecomPaint();
-    echo "< </div>";
-    echo "<  </div>";
-    echo "</main>";
-}
-
-function displayLogIn(){
-    echo "<main id='indexPage'>";
-    echo "<div class='heroWrapper1'>";
-    echo "<form class='indexForm' action='login.php' method='post'>";
-    echo "<div class='frmBtn'>";
-    echo "<button type='submit'>Login</button>";
-    echo "<button type='submit' formaction='signup.php'>Join</button>";
-    echo "</div>";
-    echo "<input type='text' placeholder='SEARCH BOX FOR Paintings' name='pSearch'>";
-    echo "</form>";
-    echo "<span id='imgCred'>Photos by <a href='https://unsplash.com/@deuxdoom?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText'>Eric Park</a> on <a href='https://unsplash.com/?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText'>Unsplash</a></span>";
-    echo "</div>";
-    echo "</main>";
-}
-
-function displayUserInfo($userInfo){
-    $conn = DatabaseConn::establishConn(array(DBCONNSTRING, DBUSER, DBPASS));
-    $dbConnect = new loginDB($conn);
-    $userCred = $dbConnect->findCustomer($userInfo);
-    echo "<div class='uInfoDiv'>";
-    echo "<label>Name</label><span>" . $userCred['FirstName'] . "</span> <span>" . $userCred['LastName'] . "</span>";
-    echo "<label>City</label><span>" . $userCred['City'] . "</span>";    
-    echo "<label>Country</label><span>" . $userCred['Country'] . "</span>";
-    echo "</div>";
-}
-
-function displayRecomPaint(){
-    $conn = DatabaseConn::establishConn(array(DBCONNSTRING, DBUSER, DBPASS));
-    $dbConnect = new PaintingDB($conn);
-    $rPainting =  $dbConnect->getTop20();
-    displayThumbPaint($rPainting);
 }
