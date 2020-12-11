@@ -260,15 +260,11 @@ class loginDB
     function checkUser($search)
     {
         try {
-            // $pdo = new PDO(DBCONNSTRING, DBUSER, DBPASS);
+            $pdo = new PDO(DBCONNSTRING, DBUSER, DBPASS);
             // // $pdo = new PDO(DBCONNECTION, DBUSER, DBPASS);
-            // $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $sql = "SELECT * FROM customerlogon";
-            $sql .= " WHERE UserName LIKE '%$search%'";
-            // $statement = $pdo->prepare($sql);
-            // *Estalbish connection and run query to return searched data
-            $statement = DatabaseConn::runQuery($this->pdo, $sql, $search);
-            // *Prevents code injection to the SQL database.
+			$sql = "SELECT * FROM CustomerLogon";
+            $sql .= " WHERE UserName LIKE ?";
+            $statement = $pdo->prepare($sql);
             $statement->bindValue(1, '%' . $search . '%');
             $statement->execute();
             $userVal = $statement->fetch(PDO::FETCH_ASSOC);
@@ -282,15 +278,12 @@ class loginDB
     function findCustomer($search)
     {
         try {
-            // $pdo = new PDO(DBCONNSTRING, DBUSER, DBPASS);
+            $pdo = new PDO(DBCONNSTRING, DBUSER, DBPASS);
             // // $pdo = new PDO(DBCONNECTION, DBUSER, DBPASS);
-            // $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $sql = "SELECT * FROM customers";
-            $sql .= " WHERE CustomerID LIKE '%$search%'";
-            // $statement = $pdo->prepare($sql);
-            // *Estalbish connection and run query to return searched data
-            $statement = DatabaseConn::runQuery($this->pdo, $sql, $search);
-            // *Prevents code injection to the SQL database.
+			$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $sql = "SELECT * FROM Customers";
+            $sql .= " WHERE CustomerID LIKE ?";
+            $statement = $pdo->prepare($sql);
             $statement->bindValue(1, '%' . $search . '%');
             $statement->execute();
             $userVal = $statement->fetch(PDO::FETCH_ASSOC);
