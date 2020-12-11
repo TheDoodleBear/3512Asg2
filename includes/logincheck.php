@@ -2,7 +2,7 @@
 require_once 'dbconfig.inc.php';
 require_once 'db-class.inc.php';
 try {
-    $conn = DatabaseConn::establishConn(array(DBCONNECTION, DBUSER, DBPASS));
+    $conn = DatabaseConn::establishConn(array(DBCONNSTRING, DBUSER, DBPASS));
     $dbConnect = new loginDB($conn);
     if (isset($_POST['submit'])) {
         if (empty($_POST['uname']) || empty($_POST['psw'])) {
