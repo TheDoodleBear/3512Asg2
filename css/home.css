@@ -1,240 +1,130 @@
-/*
-Reseting styling for the elements in each pages.
-Source inspired by:
-html5doctor.com Reset Stylesheet
-Author: Richard Clark - http://richclarkdesign.com
-*/
-
-div,
-span,
-iframe,
-h1,
-h2,
-h3,
-p,
-img,
-ol,
-ul,
-li,
-fieldset,
-form,
-label,
-legend,
-caption,
-article,
-aside,
-figcaption,
-figure,
-footer,
-header,
-section,
-html,
-body {
-    margin: 0;
-    padding: 0;
-    border: 0;
-    outline: 0;
-    font-size: 100%;
-    background: transparent;
-}
-
-body {
-    font-family: Arial, Helvetica, sans-serif;
-    background-color: whitesmoke;
-}
-
-main {
-    display: grid;
-    place-items: center;
-    height: 100vh;
-    width: 100%;
-}
-
-.heroWrapper1,
-.signupWrapper,
-.loginWrapper {
-    display: inherit;
-    background-color: whitesmoke;
-    place-items: center;
-    border-radius: 15px;
-}
-
-.heroWrapper1,
-.loginWrapper,
-.signupWrapper {
-    position: relative;
-    width: 1280px;
-    height: 720px;
-}
-
-.loginWrapper,
-.signupWrapper {
-    position: relative;
-    grid-template-rows: auto 1fr;
-    background-image: url('/img/photos/bg03.jpg');
-    background-position: center center;
-    background-size: cover;
-    background-repeat: no-repeat;
-}
-
-
-/* Hero Background Slideshow Source: https://www.w3schools.com/css/css3_animations.asp*/
-
-.heroWrapper1 {
-    background-position: center center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    animation: HeroBGSlide 40s linear 0s infinite;
-    animation-timing-function: ease;
-    background-image: url('/img/photos/bg01.jpg');
-}
-
-@keyframes HeroBGSlide {
-    0% {
-        background-image: url('/img/photos/bg01.jpg');
-    }
-    20% {
-        background-image: url('/img/photos/bg02.jpg');
-    }
-    40% {
-        background-image: url('/img/photos/bg03.jpg');
-    }
-    60% {
-        background-image: url('/img/photos/bg04.jpg');
-    }
-    80% {
-        background-image: url('/img/photos/bg05.jpg');
-    }
-    100% {
-        background-image: url('/img/photos/bg01.jpg');
-    }
-}
-
-
-/* Additional styling for the form element */
-
-.indexForm {
+.homeWrapper {
     display: inherit;
     place-items: center;
-    width: 70%;
+    grid-template: 80px 100px repeat(3, 1fr)/ 1fr 1fr;
+    grid-gap: 20px;
     height: auto;
-    border-radius: 15px;
-}
-
-.loginForm {
-    display: inherit;
-    place-items: center;
-    border-radius: 15px;
-    grid-template-rows: 1fr auto;
-    width: 70%;
-    height: auto;
-}
-
-.loginForm>.container {
-    display: inherit;
-    place-items: center;
-    grid-template: auto auto 55px / auto;
-    grid-gap: 10px;
+    padding-bottom: 20px;
     width: 100%;
-    background-color: #f5f5f580;
+    max-width: 1920px;
+    margin: 20px 15px;
+}
+
+.homeWrapper>header {
     border-radius: 10px;
-    padding: 1em;
-    box-sizing: border-box;
-}
-
-
-/* Group the buttons together to control element placement */
-
-.indexForm>.frmBtn {
-    grid-gap: 10px;
-    display: inherit;
-    grid-template: auto / auto auto;
-    place-items: center;
-    width: 80%;
-    max-width: 450px;
-}
-
-.container>.frmBtn {
-    grid-gap: 10px;
-    display: inherit;
-    grid-template: auto / auto auto;
-    place-items: center;
-    width: 75%;
-}
-
-button {
-    background-color: #184fe7;
-    color: white;
-    padding: 14px 20px;
-    margin: 8px 0;
-    border: none;
-    cursor: pointer;
-    border-radius: 8px;
-    width: 95%;
-    max-width: 200px;
-    height: 55px;
-    border: solid black 2px;
-}
-
-button:hover {
-    padding: 5px 30px;
-    border: 1px solid #184fe7;
-    border-radius: 4px;
-    /* Emboss source code: https://stackoverflow.com/questions/31259252/making-emboss-buttons */
-    -webkit-box-shadow: inset 1px 6px 12px lightskyblue, inset -1px -10px 5px blue, 1px 2px 1px black;
-    -moz-box-shadow: inset 1px 6px 12px lightskyblue, inset -1px -10px 5px blue, 1px 2px 1px black;
-    box-shadow: inset 1px 6px 12px lightskyblue, inset -1px -10px 5px blue, 1px 2px 1px black;
-    background-color: #184fe7;
-    color: white;
-    text-shadow: 1px 1px 1px black;
-}
-
-
-/* Textbox styling */
-
-input[type=text],
-input[type=password] {
+    padding: 15px;
     width: 100%;
-    max-width: 35em;
-    height: 60px;
-    padding: 12px 20px;
-    margin: 8px 0;
-    border: 1px solid #ccc;
+    height: 100%;
     box-sizing: border-box;
-    border-radius: 5px;
-    align-self: center;
+    grid-column: 1/3;
 }
 
-.textbx {
+.userInfo,
+.favPaint,
+.likePaint,
+.searchBox {
+    background-color: #C7CCDB;
+    width: 100%;
+    border-radius: 10px;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.userInfo {
+    display: inherit;
+    grid-template: 80px repeat(6, auto)/ auto auto;
+    align-items: center;
+    grid-row: 2/4;
+    height: 100%;
+}
+
+h1 {
+    grid-row: 1/2;
+    grid-column: 1/3;
+    text-align: center;
+}
+
+.searchBox {
+    display: inherit;
+    height: 100%;
+    place-items: center;
+}
+
+.searchBox>.search_logined {
+    width: 100%;
+    max-width: 800px;
+    box-sizing: border-box;
+    height: 100%;
+    margin: 0;
+}
+
+.userInfo label {
+    margin-left: 20%;
+}
+
+.favPaint,
+.likePaint {
     display: grid;
-    grid-template: auto 70px / auto;
-    grid-auto-rows: auto;
+    grid-template-rows: 80px auto;
+    height: 100%;
 }
 
-.indexForm>input[type=text] {
-    grid-row: 2/3;
+.likePaint {
+    grid-row: 3/6;
+    grid-column: 2/3;
 }
 
+.favPaint {
+    grid-row: 4/6;
+    grid-column: 1/2;
+}
 
-/* Hero image credit styling */
+.favPaint>.paintItems,
+.likePaint>.paintItems {
+    align-items: baseline;
+}
 
-#imgCred {
-    position: fixed;
-    left: 50%;
-    bottom: 17%;
-    transform: translate(-50%, -50%);
-    margin: 0 auto;
+.paintItems>.thumbnailDiv {
+    margin: 5px;
+    flex: 1 1;
+    background-color: lightskyblue;
+    padding: 5px;
+    display: grid;
+    box-sizing: border-box;
+    max-width: 350px;
+    max-height: 350px;
+    min-width: 150px;
+    min-height: 150px;
+    border-radius: 10px;
+    place-items: center;
+}
+
+.paintItems>.thumbnailDiv>a {
+    align-items: center;
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+.paintItems>a {
+    display: flex;
+    justify-content: center;
     color: whitesmoke;
 }
 
-.signupWrapper>h1,
-.loginWrapper>h1 {
-    background-color: whitesmoke;
-    padding: 10px;
-    border-radius: 5px;
-    margin-bottom: -10%;
-    width: 180px;
-    text-align: center;
+.paintItems {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: #C7CCDB;
+    padding: 5px;
+    box-sizing: border-box;
+    place-items: center;
+}
+
+.paintItems>.paintingName {
+    background: transparent;
 }
 
 

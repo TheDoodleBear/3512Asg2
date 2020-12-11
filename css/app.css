@@ -1,0 +1,394 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;1,300&display=swap');
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: Poppins, 'san serif';
+}
+
+footer {
+    text-align: center;
+    background-color: #202124;
+    color: white;
+    border-top: 1px solid white;
+    padding-top: 5px;
+}
+
+footer a {
+    color: white;
+    text-decoration: none;
+}
+
+#imgCred {
+    text-align: center;
+    color: white;
+}
+
+#imgCred a {
+    color: white;
+    text-decoration: none;
+}
+
+nav {
+    /* background: linear-gradient(45deg, #423e3e, #202124); */
+    background: #202124;
+    height: 80px;
+    width: 100%;
+}
+
+label.logo {
+    color: white;
+    font-size: 35px;
+    line-height: 80px;
+    padding: 0 30px;
+    font-weight: bold;
+}
+
+nav ul {
+    float: right;
+    margin-right: 5px;
+    z-index: 1000;
+}
+
+nav ul li {
+    display: inline-block;
+    line-height: 80px;
+    margin: 0 5px;
+}
+
+nav ul li a {
+    color: white;
+    font-size: 15px;
+    padding: 7px 10px;
+    border-radius: 3px;
+    /* text-transform: uppercase; */
+    text-decoration: none;
+}
+
+
+/* a.active,
+a:hover {
+    background: #1b9bff;
+    transition: .5s;
+} */
+
+.checkbtn {
+    font-size: 30px;
+    color: white;
+    float: right;
+    line-height: 80px;
+    margin-right: 40px;
+    cursor: pointer;
+    display: none;
+}
+
+#check {
+    display: none;
+}
+
+.form-title {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.misc {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.psw a {
+    color: white;
+}
+
+.logined {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    flex-direction: column;
+    background-color: #202124;
+}
+
+.search_logined {
+    width: 80%;
+    height: 40px;
+    text-align: center;
+    padding: 5px 10px;
+    margin: 30px 0px;
+    border-radius: 5px 5px;
+    border: none;
+}
+
+.user-details {
+    width: 100%;
+    height: auto;
+    display: flex;
+}
+
+.paint-details {
+    width: 100%;
+    height: auto;
+    display: flex;
+}
+
+.w50 {
+    width: 50%;
+}
+
+.user-content {
+    padding: 20px 20px;
+    color: white;
+    display: flex;
+    /* justify-content: center; */
+    flex-direction: column;
+}
+
+.paint-content {
+    padding: 20px 20px;
+    color: white;
+    display: flex;
+    /* justify-content: center; */
+    min-height: 450px;
+    flex-direction: column;
+}
+
+.user-img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.paint-img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.paint-img img {
+    transition: .3s linear;
+}
+
+.paint-img:hover img {
+    transform: scale(1.1);
+}
+
+.user-favorite {
+    width: 100%;
+    height: auto;
+}
+
+.favorite-title {
+    width: 100%;
+    height: auto;
+    text-align: center;
+}
+
+.favorite-paintings {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-x: scroll;
+}
+
+.painting-img {
+    margin: 10px 10px;
+}
+
+.headr {
+    padding: 30px 0px;
+    text-align: center;
+}
+
+#singlePaintPage {
+    background-color: #202124;
+    width: 100%;
+    min-height: 90vh;
+}
+
+.tab {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #202124;
+}
+
+.tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    font-size: 17px;
+    color: white;
+}
+
+
+/* Change background color of buttons on hover */
+
+.tab button:hover {
+    background-color: #ddd;
+}
+
+
+/* Create an active/current tablink class */
+
+.tab button.active {
+    background-color: #ccc;
+}
+
+
+/* Style the tab content */
+
+.tabcontent {
+    display: none;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-top: none;
+}
+
+.btnaddfavorites {
+    padding: 5px 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    background-color: #0D6EFD;
+    color: white;
+    border: none;
+    border-radius: 5px 5px;
+}
+
+#galleryPage {
+    /* display: flex;
+    justify-content: center;
+    align-items: center;
+     */
+    padding: 5px 5px;
+    background-color: #202124;
+    color: white;
+}
+
+.forgallery {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px 5px;
+    background-color: #202124;
+    color: white;
+}
+
+.gallery-list {
+    width: 30%;
+    min-height: 400px;
+    max-height: 80vh;
+    overflow-y: scroll;
+}
+
+.gallery-list .list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.gallery-list .list a {
+    color: white;
+}
+
+.gallery-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: flex-start;
+    padding: 10px 10px;
+    width: 70%;
+}
+
+.gallery-details {
+    width: 100%;
+    min-height: 200px;
+}
+
+.gallery-details div {
+    background-color: #343538;
+    padding: 10px 10px;
+}
+
+.gallery-map {
+    width: 100%;
+    min-height: 200px;
+}
+
+.gallery-map div {
+    background-color: #343538;
+    padding: 10px 10px;
+}
+
+.gallery-paintings {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    border-top: 1px solid white;
+}
+
+.gallery-paintings h3 {
+    text-align: center;
+    padding: 20px 0px;
+}
+
+td,
+th {
+    text-align: center;
+}
+
+@media (max-width: 952px) {
+    label.logo {
+        color: white;
+        font-size: 35px;
+        line-height: 80px;
+        padding: 0 30px;
+        font-weight: bold;
+    }
+    nav ul li a {
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 1030px) {
+    .checkbtn {
+        display: block;
+    }
+    ul {
+        position: fixed;
+        width: 100%;
+        height: 100vh;
+        background: #202124;
+        top: 80px;
+        left: -100%;
+        text-align: center;
+        transition: all .5s;
+    }
+    .user-details {
+        flex-direction: column;
+    }
+    .paint-details {
+        flex-direction: column;
+    }
+    .user-content {
+        width: 100%;
+    }
+    .paint-content {
+        width: 100%;
+    }
+    nav ul li {
+        display: block;
+        margin: 50px 0;
+        line-height: 30px;
+    }
+    nav ul li a {
+        font-size: 20px;
+    }
+    #check:checked~ul {
+        left: 0;
+    }
+}
