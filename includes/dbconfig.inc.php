@@ -12,7 +12,7 @@
 
 
 define('DBHOST', 'us-cdbr-east-02.cleardb.com');
-define('DBNAME', 'heroku_1df3cb0d042735');
+define('DBNAME', 'heroku_1df3cb0d0425735');
 define('DBUSER', 'bde88340f4f08c');
 define('DBPASS', 'b3c67720');
 define('DBCONNSTRING',"mysql:host=" . DBHOST . ";dbname=" . DBNAME . ";charset=utf8mb4;");
