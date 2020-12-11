@@ -9,7 +9,7 @@ $fav = $_SESSION["favorites"];
 
 if (isset($_GET['id'])) {
     // now add passed painting ID to the array
-    $data = ["id"=>$_GET['id'], "title"=>$_GET['title'], "ImageFileName"=>$_GET['img']];
+    $data = ["PaintingID"=>$_GET['id'], "Title"=>$_GET['title'], "ImageFileName"=>$_GET['img'], "ArtistID"=>$_GET['artist'], "GalleryID"=>$_GET['gallery']];
     $fav[] = $data;
 }
 

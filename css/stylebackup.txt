@@ -1,0 +1,153 @@
+/*
+Reseting styling for the elements in each pages. 
+Source inspired by:
+html5doctor.com Reset Stylesheet
+Author: Richard Clark - http://richclarkdesign.com
+*/
+
+div,
+span,
+iframe,
+h1,
+h2,
+h3,
+p,
+img,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+caption,
+article,
+aside,
+figcaption,
+figure,
+footer,
+header,
+section,
+html,
+body {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-size: 100%;
+    background: transparent;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+main {
+    display: grid;
+    place-items: center;
+    height: 100vh;
+    width: 100%;
+}
+
+.formDiv {
+    position: relative;
+    display: inherit;
+    background-color: whitesmoke;
+    width: 95%;
+    height: 75%;
+    border-radius: 15px;
+    align-content: center;
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    backface-visibility: hidden;
+    animation: HeroBGSlide 20s linear infinite 0s;
+    animation-timing-function: ease;
+    background-image: url('/img/photos/bg01.jpg');
+}
+
+
+/* Background Slideshow */
+
+@keyframes HeroBGSlide {
+    0% {
+        background-image: url('/img/photos/bg01.jpg');
+    }
+    25% {
+        background-image: url('/img/photos/bg02.jpg');
+    }
+    50% {
+        background-image: url('/img/photos/bg03.jpg');
+    }
+    75% {
+        background-image: url('/img/photos/bg04.jpg');
+    }
+    100% {
+        background-image: url('/img/photos/bg05.jpg');
+    }
+}
+
+form {
+    display: inherit;
+    place-items: center;
+}
+
+#fButton {
+    grid-gap: 10px;
+    display: inherit;
+    grid-template: auto / auto auto;
+    place-items: center;
+    width: 80%;
+    max-width: 450px;
+}
+
+input[type=text] {
+    width: 70%;
+    max-width: 600px;
+    height: 60px;
+    padding: 12px 20px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    grid-row: 2/3;
+}
+
+button {
+    background-color: #184fe7;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    border-radius: 8px;
+    width: 95%;
+    max-width: 200px;
+    height: 55px;
+    border: solid black 2px;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+#imgCred {
+    position: fixed;
+    left: 50%;
+    bottom: 12%;
+    transform: translate(-50%, -50%);
+    margin: 0 auto;
+    color: whitesmoke;
+}
+
+@media screen and (max-width: 480px) {
+    #fButton {
+        grid-template: auto auto / auto;
+        place-items: center;
+        width: 80%;
+    }
+    #imgCred {
+        position: absolute;
+        margin-left: 10%;
+        bottom: 5px;
+    }
+}
