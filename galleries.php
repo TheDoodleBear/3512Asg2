@@ -15,76 +15,75 @@
 </head>
 
 <body>
-    <?php
+<?php
 
-    // Inintialize URL to the variable 
-    $url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-    // Use parse_url() function to parse the URL  
-    $url_components = parse_url($url);
+// Inintialize URL to the variable 
+$url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";      
+// Use parse_url() function to parse the URL  
+$url_components = parse_url($url); 
 
-    // Use parse_str() function to parse the 
-    // string passed via URL 
+// Use parse_str() function to parse the 
+// string passed via URL 
+
+      
+// Display result 
 
 
-    // Display result 
+if (!isset ($url_components['query']) ) {  
+    $page = 1;  
+} else {  
+    parse_str($url_components['query'], $params); 
+    $page = $params['page'];  
+} 
 
+$data = array('Page' => $page);
+$headers   = array();
+$headers[] = "Content-Type: application/x-www-form-urlencoded";
+$headers[] = "Accept: application/json";
+$headers[] = "X-API-Key: 123456789";
 
-    if (!isset($url_components['query'])) {
-        $page = 1;
-    } else {
-        parse_str($url_components['query'], $params);
-        $page = $params['page'];
+$api_url = 'http://localhost/PHP_1/api/galleries/read.php';
+
+function fetch(string $method, string $url, string $body, array $headers = []) {
+   
+    $context = stream_context_create([
+        "http" => [
+            // http://localhost/PHP_1/api/galleries/read.php
+            "method"        => $method,
+            "header"        => implode("\r\n", $headers),
+            "content"       => $body,
+            "ignore_errors" => true,
+        ],
+    ]);
+
+    $response = file_get_contents($url, false, $context);
+
+  
+
+    $status_line = $http_response_header[0];
+
+    preg_match('{HTTP\/\S*\s(\d{3})}', $status_line, $match);
+
+    $status = $match[1];
+
+    if ($status !== "200") {
+        throw new RuntimeException("unexpected response status: {$status_line}\n" . $response);
     }
+    
+    return $response;
+}
 
-    $data = array('Page' => $page);
-    $headers   = array();
-    $headers[] = "Content-Type: application/x-www-form-urlencoded";
-    $headers[] = "Accept: application/json";
-    $headers[] = "X-API-Key: 123456789";
-
-    $api_url = 'http://localhost/PHP_1/api/galleries/read.php';
-
-    function fetch(string $method, string $url, string $body, array $headers = [])
-    {
-
-        $context = stream_context_create([
-            "http" => [
-                // http://localhost/PHP_1/api/galleries/read.php
-                "method"        => $method,
-                "header"        => implode("\r\n", $headers),
-                "content"       => $body,
-                "ignore_errors" => true,
-            ],
-        ]);
-
-        $response = file_get_contents($url, false, $context);
+// The data is stored in the  
+// result variable 
+$json_data = fetch('POST', $api_url, json_encode($data), $headers);
 
 
 
-        $status_line = $http_response_header[0];
-
-        preg_match('{HTTP\/\S*\s(\d{3})}', $status_line, $match);
-
-        $status = $match[1];
-
-        if ($status !== "200") {
-            throw new RuntimeException("unexpected response status: {$status_line}\n" . $response);
-        }
-
-        return $response;
-    }
-
-    // The data is stored in the  
-    // result variable 
-    $json_data = fetch('POST', $api_url, json_encode($data), $headers);
-
-
-
-    $response_data = json_decode($json_data);
-    $ii = 0;
-    ?>
-    <!-- header -->
-    <nav>
+$response_data = json_decode($json_data);
+$ii = 0;
+?>
+<!-- header -->
+<nav>
         <input type="checkbox" id="check">
         <label for="check" class="checkbtn">
             <i class="fas fa-bars"></i>
@@ -106,58 +105,59 @@
         </ul>
     </nav>
     <!-- content -->
-    <div class="container-fluid" style="width: 70%">
-        <div class="row pt-5">
-            <?php foreach ($response_data->result as $row) :
-                $ii++; ?>
-                <div class="col-md-4 pt-4">
-                    <div class="card">
-                        <img class="card-img-top" id="Card_image" src="img/artists/full/<?php echo (99 + $ii); ?>.jpg" height="300px;">
-                        <script>
-                            var tt = '<?php echo $ii; ?>';
-                            var map_id = "Card_image" + tt;
-
-                            function myMap() {
-                                var mapProp = {
-                                    center: new google.maps.LatLng(<?php echo $row->Latitude; ?>, <?php echo $row->Longitude; ?>),
-                                    zoom: 5,
-                                };
-                                var map = new google.maps.Map(document.getElementById(map_id), mapProp);
-                            }
-                        </script>
-                        <div class="card-body">
-                            <h4 class="card-title"><?php echo $row->GalleryName . "  (" . $row->GalleryNativeName . " )"; ?></h4>
-                            <p class="card-text"><?php echo $row->GalleryAddress . ",  " . $row->GalleryCity . ",  " . $row->GalleryCountry; ?></p>
-                            <a href="<?php echo $row->GalleryWebSite ?>">See Website</a>
-                            <a class="float-right" href="http://localhost/PHP_1/single-gallery.php?id=<?php echo $row->GalleryID ?>" style="font-style: italic; color: #cccccc;">More detail...</a>
-                        </div>
-                    </div>
+<div class="container-fluid" style="width: 70%">
+  <div class="row pt-5">
+    <?php foreach($response_data->result as $row) : 
+        $ii ++; ?>
+        <div class="col-md-4 pt-4">
+            <div class="card">
+                <img class="card-img-top" id="Card_image" src="img/artists/full/<?php echo (99+$ii); ?>.jpg" height="300px;">
+                <script>
+                    var tt = '<?php echo $ii; ?>';
+                    var map_id = "Card_image"+ tt;
+                    function myMap() {
+                       var mapProp= {
+                            center:new google.maps.LatLng(<?php echo $row->Latitude; ?>,<?php echo $row->Longitude; ?>),
+                            zoom:5,
+                        };
+                        var map = new google.maps.Map(document.getElementById(map_id),mapProp);
+                    }
+                </script>
+                <div class="card-body">
+                <h4 class="card-title"><?php echo $row->GalleryName. "  (" .$row->GalleryNativeName. " )";?></h4>
+                <p class="card-text"><?php echo $row->GalleryAddress. ",  " .$row->GalleryCity.",  " .$row->GalleryCountry; ?></p>
+                <a href="<?php echo $row->GalleryWebSite?>">See Website</a>
+                <a class="float-right" href="http://localhost/PHP_1/single-gallery.php?id=<?php echo $row->GalleryID ?>" style="font-style: italic; color: #cccccc;">More detail...</a>
                 </div>
-            <?php
-                if ($ii % 3 == 0)
-                    echo '</div><div class="row pt-3">';
-            endforeach; ?>
-
-            <div class="row">
-                <ul class="pagination">
-                    <?php for ($page = 1; $page <= $response_data->number_of_page; $page++) :
-                        echo '<li class="page-item" active-id=' . (($response_data->current_page == $page) ? 1 : 0) . '><a class="page-link" href = "http://localhost/PHP_1/galleries.php?page=' . $page . '">' . $page . ' </a></li>';
-                    endfor; ?>
-                </ul>
             </div>
         </div>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-        <script src="js/jscript.js"></script>
-        <script>
-            $("ul.pagination li").each(function(i) {
-                var $this = $("ul.pagination li").eq(i);
-                $this.removeClass("active");
-                if ($(this).attr("active-id") == 1)
-                    $(this).addClass("active");
-            })
-        </script>
+    <?php 
+        if($ii % 3 == 0) 
+          echo '</div><div class="row pt-3">';
+    endforeach; ?>
+  
+    <div class="row">
+        <ul class="pagination">
+            <?php for($page = 1; $page<= $response_data->number_of_page; $page++) : 
+                echo '<li class="page-item" active-id='.(($response_data->current_page == $page)? 1: 0).'><a class="page-link" href = "http://localhost/PHP_1/galleries.php?page='.$page.'">' . $page . ' </a></li>';  
+             endfor; ?>
+        </ul>
+    </div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="js/jscript.js"></script>
+<script>
+    
+    $("ul.pagination li").each(function(i) {
+        var $this = $("ul.pagination li").eq(i);
+        $this.removeClass("active");
+        if($(this).attr("active-id") == 1)
+          $(this).addClass("active");
+    })
+    
+</script>
 </body>
 
 </html>
