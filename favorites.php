@@ -32,7 +32,7 @@ session_start();
             <li><a href="favorites.php">Favorites</a></li>
             <?php
             if (isset($_SESSION['CustID'])) {
-                echo "<li><a href='logout.php'>LogOut</a></li>";
+                echo "<li><a href='/includes/logout.php'>LogOut</a></li>";
             } else {
                 echo "<li><a href='login.php'>Login</a></li>";
             }

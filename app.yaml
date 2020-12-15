@@ -1,0 +1,27 @@
+# Google Cloud Setup File
+
+runtime: php55
+api_version: 1
+
+env_variables:
+  MYSQL_USER: "root"
+  MYSQL_PASSWORD: "0I0ENONkwbvEboGG"
+  MYSQL_DSN: mysql:dbname=art;charset=utf8mb4;unix_socket=/cloudsql/comp3512-296719:us-west1:sqlcomp3512
+beta_settings:
+  cloud_sql_instances: "comp3512-296719:us-west1:sqlcomp3512"
+
+#gcloud app deploy
+handlers:
+# Serve images as static resources
+- url: /(.+\.(gif|png|jpg))$
+  static_files: \1
+  upload: .+\.(gif|png|jpg)$
+# Serve images as static resources
+- url: /(.+\.(htm|html))$
+  static_files: \1
+  upload: .+\.(htm|html)$
+# Serve php scripts
+- url: /(.+\.php)$
+  script: \1
+- url: /.*
+  script: index.php
