@@ -127,7 +127,7 @@ $ii = 0;
                 <h4 class="card-title"><?php echo $row->GalleryName. "  (" .$row->GalleryNativeName. " )";?></h4>
                 <p class="card-text"><?php echo $row->GalleryAddress. ",  " .$row->GalleryCity.",  " .$row->GalleryCountry; ?></p>
                 <a href="<?php echo $row->GalleryWebSite?>">See Website</a>
-                <a class="float-right" href="http://https://quiet-island-30029.herokuapp.com/single-gallery.php?id=<?php echo $row->GalleryID ?>" style="font-style: italic; color: #cccccc;">More detail...</a>
+                <a class="float-right" href="http://https://database-comp3512-a2-dec8.herokuapp.com/single-gallery.php?id=<?php echo $row->GalleryID ?>" style="font-style: italic; color: #cccccc;">More detail...</a>
                 </div>
             </div>
         </div>
