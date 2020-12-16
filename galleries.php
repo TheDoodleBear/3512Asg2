@@ -42,7 +42,7 @@ $headers[] = "Content-Type: application/x-www-form-urlencoded";
 $headers[] = "Accept: application/json";
 $headers[] = "X-API-Key: 123456789";
 
-$api_url = 'https://quiet-island-30029.herokuapp.com/api/galleries/read.php';
+$api_url = 'https://database-comp3512-a2-dec8.herokuapp.com/api/galleries/read.php';
 
 function fetch(string $method, string $url, string $body, array $headers = []) {
    
@@ -139,7 +139,7 @@ $ii = 0;
     <div class="row">
         <ul class="pagination">
             <?php for($page = 1; $page<= $response_data->number_of_page; $page++) : 
-                echo '<li class="page-item" active-id='.(($response_data->current_page == $page)? 1: 0).'><a class="page-link" href = "http://https://quiet-island-30029.herokuapp.com/galleries.php?page='.$page.'">' . $page . ' </a></li>';  
+                echo '<li class="page-item" active-id='.(($response_data->current_page == $page)? 1: 0).'><a class="page-link" href = "http://database-comp3512-a2-dec8.herokuapp.com/galleries.php?page='.$page.'">' . $page . ' </a></li>';  
              endfor; ?>
         </ul>
     </div>

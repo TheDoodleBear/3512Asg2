@@ -1,0 +1,163 @@
+.browseWrapper {
+    display: inherit;
+    place-items: center;
+    grid-template: 80px 100px repeat(3, 1fr)/ 1fr 1fr;
+    grid-gap: 20px;
+    height: auto;
+    padding-bottom: 20px;
+    width: 100%;
+    max-width: 1920px;
+    margin: 20px 15px;
+}
+
+.browseWrapper>header {
+    border-radius: 10px;
+    padding: 15px;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    grid-column: 1/3;
+}
+
+.userInfo,
+.favPaint,
+.likePaint,
+.searchBox {
+    background-color: #C7CCDB;
+    width: 100%;
+    border-radius: 10px;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.userInfo {
+    display: inherit;
+    grid-template: 80px repeat(6, auto)/ auto auto;
+    align-items: center;
+    grid-row: 2/4;
+    height: 100%;
+}
+
+h1 {
+    grid-row: 1/2;
+    grid-column: 1/3;
+    text-align: center;
+}
+
+.searchBox {
+    display: inherit;
+    height: 100%;
+    place-items: center;
+}
+
+.searchBox>.search_logined {
+    width: 100%;
+    max-width: 800px;
+    box-sizing: border-box;
+    height: 100%;
+    margin: 0;
+}
+
+.userInfo label {
+    margin-left: 20%;
+}
+
+.favPaint,
+.likePaint {
+    display: grid;
+    grid-template-rows: 80px auto;
+    height: 100%;
+}
+
+.likePaint {
+    grid-row: 3/6;
+    grid-column: 2/3;
+}
+
+.favPaint {
+    grid-row: 4/6;
+    grid-column: 1/2;
+}
+
+.favPaint>.paintItems,
+.likePaint>.paintItems {
+    align-items: baseline;
+}
+
+.paintItems>.thumbnailDiv {
+    margin: 5px;
+    flex: 1 1;
+    background-color: lightskyblue;
+    padding: 5px;
+    display: grid;
+    box-sizing: border-box;
+    max-width: 350px;
+    max-height: 350px;
+    min-width: 150px;
+    min-height: 150px;
+    border-radius: 10px;
+    place-items: center;
+}
+
+.paintItems>.thumbnailDiv>a {
+    align-items: center;
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+.paintItems>a {
+    display: flex;
+    justify-content: center;
+    color: whitesmoke;
+}
+
+.paintItems {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: #C7CCDB;
+    padding: 5px;
+    box-sizing: border-box;
+    place-items: center;
+}
+
+.paintItems>.paintingName {
+    background: transparent;
+}
+
+
+/* Change some element's positioning and style based on the width of the screen */
+
+@media screen and (max-width: 680px) {
+    .indexForm>.frmBtn {
+        grid-template: auto auto / auto;
+        place-items: center;
+    }
+    .container>.frmBtn {
+        grid-template: auto auto / auto;
+        place-items: center;
+    }
+    #imgCred {
+        width: 100%;
+        bottom: 10%;
+        transform: translate(-25%, -25%);
+    }
+    .indexForm,
+    .loginForm {
+        width: 90%;
+        height: auto;
+        padding: 10px
+    }
+    .loginForm>.container {
+        grid-template: auto auto auto/ auto;
+    }
+    .heroWrapper1,
+    .loginWrapper,
+    .signupWrapper {
+        position: relative;
+        width: 90%;
+        height: 80%;
+    }
+}
