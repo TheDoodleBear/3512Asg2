@@ -42,7 +42,7 @@ $headers[] = "Content-Type: application/x-www-form-urlencoded";
 $headers[] = "Accept: application/json";
 $headers[] = "X-API-Key: 123456789";
 
-$api_url = 'http://localhost/PHP_1/api/galleries/read.php';
+$api_url = 'https://quiet-island-30029.herokuapp.com/api/galleries/read.php';
 
 function fetch(string $method, string $url, string $body, array $headers = []) {
    
