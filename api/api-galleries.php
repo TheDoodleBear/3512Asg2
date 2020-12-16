@@ -1,7 +1,7 @@
 <?php
 // include support files    
-require_once '../includes/dbconfig.inc.php';
-require_once '../includes/db-class.inc.php';
+require_once '../../includes/dbconfig.inc.php';
+require_once '../../includes/db-class.inc.php';
 
 // Browser shoud expect JSON rather than HTML
 header('Content-type: application/json');
