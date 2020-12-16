@@ -48,7 +48,7 @@ function fetch(string $method, string $url, string $body, array $headers = []) {
    
     $context = stream_context_create([
         "http" => [
-            // http://localhost/PHP_1/api/galleries/read.php
+            // https://quiet-island-30029.herokuapp.com/api/galleries/read.php
             "method"        => $method,
             "header"        => implode("\r\n", $headers),
             "content"       => $body,
@@ -127,7 +127,7 @@ $ii = 0;
                 <h4 class="card-title"><?php echo $row->GalleryName. "  (" .$row->GalleryNativeName. " )";?></h4>
                 <p class="card-text"><?php echo $row->GalleryAddress. ",  " .$row->GalleryCity.",  " .$row->GalleryCountry; ?></p>
                 <a href="<?php echo $row->GalleryWebSite?>">See Website</a>
-                <a class="float-right" href="http://localhost/PHP_1/single-gallery.php?id=<?php echo $row->GalleryID ?>" style="font-style: italic; color: #cccccc;">More detail...</a>
+                <a class="float-right" href="http://https://quiet-island-30029.herokuapp.com/PHP_1/single-gallery.php?id=<?php echo $row->GalleryID ?>" style="font-style: italic; color: #cccccc;">More detail...</a>
                 </div>
             </div>
         </div>
@@ -139,7 +139,7 @@ $ii = 0;
     <div class="row">
         <ul class="pagination">
             <?php for($page = 1; $page<= $response_data->number_of_page; $page++) : 
-                echo '<li class="page-item" active-id='.(($response_data->current_page == $page)? 1: 0).'><a class="page-link" href = "http://localhost/PHP_1/galleries.php?page='.$page.'">' . $page . ' </a></li>';  
+                echo '<li class="page-item" active-id='.(($response_data->current_page == $page)? 1: 0).'><a class="page-link" href = "http://https://quiet-island-30029.herokuapp.com/PHP_1/galleries.php?page='.$page.'">' . $page . ' </a></li>';  
              endfor; ?>
         </ul>
     </div>
